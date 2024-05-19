@@ -1,0 +1,102 @@
+{
+  "trongnuoc": [
+    {
+      "id": 1,
+      "idCategory": 1,
+      "name": "Tour Sài Gòn - Đà Lạt",
+      "description": "Khám phá vẻ đẹp tươi mới của thành phố hoa Đà Lạt.",
+      "img": "dalat.jpg",
+      "price": 1800000,
+      "views": "1000",
+      "favorite": 1,
+      "createdAt": "2024-04-13T07:05:53.000Z",
+      "updatedAt": "2024-04-13T07:05:53.000Z"
+    },
+    {
+      "id": 2,
+      "idCategory": 1,
+      "name": "Phú Yên yên bình",
+      "description": "Vẽ đẹp hoang sơ và yên bình chỉ có tại Phú Yên.",
+      "img": "phuyen.jpg",
+      "price": 1800000,
+      "views": "100000",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:06:29.000Z",
+      "updatedAt": "2024-04-13T07:06:29.000Z"
+    },
+    {
+      "id": 3,
+      "idCategory": 1,
+      "name": "Phú Quốc không nỡ vội xa",
+      "description": "Phúc Quốc ngày càng quyến rũ lữ khách phương xa với vẽ trinh nguyên vốn có",
+      "img": "phuquoc.jpg",
+      "price": 3500000,
+      "views": "100",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:07:05.000Z",
+      "updatedAt": "2024-04-13T07:07:05.000Z"
+    },
+    {
+      "id": 4,
+      "idCategory": 1,
+      "name": "Nha Trang mùa thu về",
+      "description": "Nhớ Nha Trang đêm hè lộng gió, mặt nước xanh rờn ...",
+      "img": "nhatrang.jpg",
+      "price": 1800000,
+      "views": "10",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:07:35.000Z",
+      "updatedAt": "2024-04-13T07:07:35.000Z"
+    }
+  ],
+  "ngoainuoc": [
+    {
+      "id": 5,
+      "idCategory": 2,
+      "name": "Tour Paris",
+      "description": "Thưởng thức nền văn hóa lâu dài và đẹp nhất thế giới.",
+      "img": "paris.jpg",
+      "price": 3500000,
+      "views": "10",
+      "favorite": 1,
+      "createdAt": "2024-04-13T07:08:06.000Z",
+      "updatedAt": "2024-04-13T07:08:06.000Z"
+    },
+    {
+      "id": 6,
+      "idCategory": 2,
+      "name": "Hàn Quốc thu hút giới trẻ",
+      "description": "Vẻ đẹp nền nã và quyến rũ đã từ lâu thu hút giới trẻ. .",
+      "img": "hanquoc.jpg",
+      "price": 3900000,
+      "views": "10",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:08:36.000Z",
+      "updatedAt": "2024-04-13T07:08:36.000Z"
+    },
+    {
+      "id": 7,
+      "idCategory": 2,
+      "name": "Văn hóa phật giáo lâu đời",
+      "description": "Nơi con người tìm về với thiền hay sự ồn ào của đa sắc giới.",
+      "img": "thailan.jpg",
+      "price": 3500000,
+      "views": "10",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:09:02.000Z",
+      "updatedAt": "2024-04-13T07:09:02.000Z"
+    },
+    {
+      "id": 8,
+      "idCategory": 2,
+      "name": "Uy nga tráng lệ - Luân Đôn nước Anh",
+      "description": "Anh Quốc là quốc gia trí tuệ và học thức.",
+      "img": "LuanDon.jpg",
+      "price": 3900000,
+      "views": "10",
+      "favorite": 0,
+      "createdAt": "2024-04-13T07:09:27.000Z",
+      "updatedAt": "2024-04-13T07:09:27.000Z"
+    }
+  ]
+}
