@@ -2,107 +2,292 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" sizes="96x96" href="../favicon_io/favicon.ico">
-  <title>FOUR BUG TEAM</title>
-  <link rel="stylesheet" href="../css/input.css">
-  <link rel="stylesheet" href="../css/output.css">
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" sizes="96x96" href="../favicon_io/favicon.ico">
+    <title>FOUR BUG TEAM</title>
+    <link rel="stylesheet" href="../css/input.css">
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
-    .content--header{
-  background-color: E4E4E4 ;
-  border-bottom: 1px solid black;
-  border-radius: 5px;
-}
-  .m_c-headerAbove{
-    text-align: center;
-    height: 40px;
-  }
+    .content--header {
+        background-color: E4E4E4;
+        border-bottom: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .m_c-headerAbove {
+        text-align: center;
+        height: 40px;
+    }
 </style>
+
 <body>
-  <div class="container">
-    <header>
-      <h1 class="header__title">FOUR BUGS TEAM</h1>
-    </header>
-    <main>
-      <section class="main__nav">
-        <div class="infoUser">
-          <div class="avatarUser">
-            <img class="avatar"
-              src="https://cdn.dribbble.com/users/2400293/screenshots/14743996/media/84ff2a3e9945913dda969bd4f25169cd.gif"
-              alt="">
-          </div>
-          <div class="infoUser-content">
-            <span class="infoUser-nameUser">
-              Nguyễn Quốc Thành
-            </span>
-            <span class="infoUser-description">
-              Thông tin bạn cần bên dưới.
-            </span>
-          </div>
-        </div>
-        <nav class="menu">
-          <ul class="menu__ul">
-            <li class="menu__li menu__li--active"><a href="">
-                <i class="fa-solid fa-table"></i>
-                <span class="menu__title">Bảng thi đấu</span>
-              </a></li>
-            <li class="menu__li"><a href="">
-                <i class="fa-solid fa-user"></i>
-                <span class="menu__title">Thông tin</span>
-              </a></li>
-            <li class="menu__li"><a href="">
-                <i class="fa-solid fa-bars"></i>
-                <span class="menu__title">Lịch thi đấu</span>
-              </a></li>
-            <li class="menu__li"><a href="">
-                <i class="fa-solid fa-plus"></i>
-                <span class="menu__title">Tạo bản đấu</span>
-              </a></li>
-          </ul>
-        </nav>
-        <button class="buttonLogOut">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
-      </section>
-      <section class="main__content">
-            <div class="content--header">
-                <div class="m_c-headerAbove">
-                    <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+    <div class="container">
+        <header>
+            <h1 class="header__title">FOUR BUGS TEAM</h1>
+        </header>
+        <main>
+            <section class="main__nav">
+                <div class="infoUser">
+                    <div class="avatarUser">
+                        <img class="avatar"
+                            src="https://cdn.dribbble.com/users/2400293/screenshots/14743996/media/84ff2a3e9945913dda969bd4f25169cd.gif"
+                            alt="">
+                    </div>
+                    <div class="infoUser-content">
+                        <span class="infoUser-nameUser">
+                            Nguyễn Quốc Thành
+                        </span>
+                        <span class="infoUser-description">
+                            Thông tin bạn cần bên dưới.
+                        </span>
+                    </div>
                 </div>
-                <div class="m_c-headerUnder">
-                    <div class="headerUnder-filter">Lọc theo</div>
-                    <ul>
-                        <li>Đội chưa đủ người</li>
-                        <li>Đội thi đấu đơn</li>
-                        <li>Đội thi đấu đôi</li>
-                        <li>Đội Hoàn thiện</li>
-                        <li>Theo ngày</li>
+                <nav class="menu">
+                    <ul class="menu__ul">
+                        <li class="menu__li menu__li--active"><a href="">
+                                <i class="fa-solid fa-table"></i>
+                                <span class="menu__title">Bảng thi đấu</span>
+                            </a></li>
+                        <li class="menu__li"><a href="">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="menu__title">Thông tin</span>
+                            </a></li>
+                        <li class="menu__li"><a href="">
+                                <i class="fa-solid fa-bars"></i>
+                                <span class="menu__title">Lịch thi đấu</span>
+                            </a></li>
+                        <li class="menu__li"><a href="">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="menu__title">Tạo bản đấu</span>
+                            </a></li>
                     </ul>
+                </nav>
+                <button class="buttonLogOut">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </section>
+            <section class="main__content">
+                <div class="content--header">
+                    <div class="m_c-headerAbove">
+                        <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+                    </div>
+                    <div class="m_c-headerUnder">
+                        <div class="headerUnder-filter">Lọc theo</div>
+                        <ul>
+                            <li>Đội chưa đủ người</li>
+                            <li>Đội thi đấu đơn</li>
+                            <li>Đội thi đấu đôi</li>
+                            <li>Đội Hoàn thiện</li>
+                            <li>Theo ngày</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="content--body"></div>
-      </section>
-    </main>
-    <footer>
-      <ul>
-        <li>Trần Thị Hồng Ngọc</li>
-        <li>Nguyễn Trần Khắc Duy</li>
-        <li>Nguyễn Quốc Thành</li>
-        <li>Cao Hoàng Thành</li>
-        <li>FB: FourBugs-team</li>
-        <li>ZL: Nâng tầm fix bugs</li>
-        <li>Liên hệ: 0348378112 (Khắc Duy)</li>
-        <li>Giảng viên: Iris Mint</li>
-      </ul>
-    </footer>
-  </div>
+                <div class="content--body">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Mã đội</th>
+                                <th>Hạn đội</th>
+                                <th>Giới - Ngày</th>
+                                <th>Người tham gia</th>
+                                <th>Khác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đôi</td>
+                                <td>12/5</td>
+                                <td>2 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>2 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đôi</td>
+                                <td>12/5</td>
+                                <td>3 | 4</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                            <tr>
+                                <td>#123891</td>
+                                <td>Đơn</td>
+                                <td>12/5</td>
+                                <td>1 | 2</td>
+                                <td><a href="#">Tham gia</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- <div  class="blanket_form">
+                <div class="blanket_form--above"></div>
+                <div class="blanket_form--under">
+                    <div>
+                        <div class="form__in4--header">
+                            <h1># <span>Mã đội</span> - <span>Đơn</span> - <span>9</span>h<span>30</span> -
+                                <span>11</span>/<span>5</span>
+                            </h1>
+                            <div><i class="fa-solid fa-x"></i></div>
+                        </div>
+                        <form style="display: none;" action="">
+                            <div class="">
+                                <div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="">
+                            <div class="">
+                                <div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                    <div>
+                                        <label for=""></label>
+                                        <input type="text" value="Nguyễn Trần Khắc Duy" readonly>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="btnJoin">
+                                <button class="" type="submit">Tham gia</button>
+                            </div>
+                        </form>
+                        <div class="form__contact">
+                            <h1>Liên hệ Tuyển thủ:</h1>
+                            <div>
+                                <div class="contact__team1">
+                                    <div>SĐT (TT1):<span>0348389112</span></div>
+                                    <div>SĐT (TT2):<span>0348389112</span></div>
+                                </div>
+                                <div class="contact__team">
+                                    <div>SĐT (TT1):<span>0348389112</span></div>
+                                    <div>SĐT (TT2):<span>0348389112</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form__local">
+                            <h1>Vị trí sân đấu:</h1>
+                            <div>
+                                <p>
+                                    313 - Tô ký - Trung Mỹ Tây - Quận 12
+                                    313 - Tô ký - Trung Mỹ Tây - Quận 12
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </main>
+        <footer>
+            <ul>
+                <li>Trần Thị Hồng Ngọc</li>
+                <li>Nguyễn Trần Khắc Duy</li>
+                <li>Nguyễn Quốc Thành</li>
+                <li>Cao Hoàng Thành</li>
+                <li>FB: FourBugs-team</li>
+                <li>ZL: Nâng tầm fix bugs</li>
+                <li>Liên hệ: 0348378112 (Khắc Duy)</li>
+                <li>Giảng viên: Iris Mint</li>
+            </ul>
+        </footer>
+    </div>
 </body>
 
 </html>
