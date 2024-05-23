@@ -63,7 +63,7 @@ header {
 main {
   padding: 0 160px;
   width: 100%;
-  max-height: 543px;  
+  height: 543px;  
   display: flex;
   background-color: lightcyan;
 }
@@ -255,7 +255,7 @@ footer ul li {
   cursor:pointer;
 }
 .content--body{
-  max-height:462px;
+  height:462px;
   overflow-y: auto;
   background-color: #FFD771;
 }
@@ -282,7 +282,6 @@ footer ul li {
 }
 
 .styled-table tbody{
-  height:400px;
   overflow: hidden;
 }
 .styled-table tbody tr {
@@ -330,14 +329,14 @@ footer ul li {
   padding:10px;
   border-radius:5px;
   background-color:white;
-  margin:10px 10px 10px 0;
+  margin:10px 10px 0 0;
 }
 .form__in4--header{
   display:flex;
 }
 .form__in4--header>div{
   position:relative;
-  left: 220px;
+  left: 200px;
   cursor:pointer;
 }
 .form__contact{
