@@ -1,5 +1,4 @@
 <%- include('header.ejs')%>
-
     <section class="main__content">
         <div class="content--header">
             <div class="m_c-headerAbove">
@@ -48,7 +47,6 @@
                                         </td>
                                         <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
                                     </tr>
-
                                     <% } %>
                 </tbody>
             </table>
@@ -104,7 +102,7 @@
                             <button class="" type="submit">Tham gia</button>
                         </div>
                     </form>
-                    <form style="display: <%=style2%>;" action="">
+                    <form style="display: <%=style2%>;" action="/match/<%= detail.id %>/1" method="POST">
                         <div class="">
                             <div>
                                 <div>

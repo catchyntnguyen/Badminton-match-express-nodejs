@@ -300,7 +300,7 @@ footer ul li {
   z-index:10;
 }
 .blanket_form .blanket_form--above{
-  height:543px;
+  min-height:543px;
   background-color:rgba(217, 217, 217, 0.8);
   z-index:10;
 }
