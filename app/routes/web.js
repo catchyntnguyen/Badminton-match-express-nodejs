@@ -1,5 +1,5 @@
 const express = require('express');
-const { homePage,matchTeam } = require('../controller/homeController');
+const { homePage,matchTeam,joinTeam } = require('../controller/homeController');
 
 let router = express.Router();
 
@@ -9,4 +9,8 @@ router.get('/', homePage)
 
 //detail page 
 router.get('/match/team/:id', matchTeam);
+
+// handlers 
+router.post('/match/:team/:id', joinTeam);
+
 module.exports = router;

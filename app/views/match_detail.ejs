@@ -30,33 +30,35 @@
                 <tbody style="text-align: center;">
                     <% let stv; %>
                         <% for (let i of matches) { %>
-
+                            <%playerNow=JSON.parse(i.player)%>
                             <% if (i.categoriesID==1) { stv=2; doi="Đơn" } else if (i.categoriesID==2) { stv=4;
                                 doi="Đôi" } %>
-                                <tr>
-                                    <td># <%= i.id %>
-                                    </td>
-                                    <td>
-                                        <%= doi %>
-                                    </td>
-                                    <td>
-                                        <%= i.dateStart %>
-                                    </td>
-                                    <td>
-                                        | <%= stv %>
-                                    </td>
-                                    <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
-                                </tr>
+                                
+                                    <tr>
+                                        <td># <%= i.id %>
+                                        </td>
+                                        <td>
+                                            <%= doi %>
+                                        </td>
+                                        <td>
+                                            <%= i.dateStart %>
+                                        </td>
+                                        <td>
+                                            <%=playerNow.user.length%>   | <%= stv %>
+                                        </td>
+                                        <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
+                                    </tr>
 
-                                <% } %>
+                                    <% } %>
                 </tbody>
             </table>
         </div>
     </section>
     <div class="blanket_form">
-        <% let style1, style2; if (detail.categoriesID==1) { stv=2; doi="Đơn" ; style1="block" ; style2="none" ; } else
+        <% let style1, style2, style3; if (detail.categoriesID==1) { stv=2; doi="Đơn" ; style1="block" ; style2="none" ; } else
             { stv=4; doi="Đôi" ; style1="none" ; style2="block" ; } %>
-
+            <%playerDetailNow=JSON.parse(detail.player)%>
+            <%if(playerDetailNow.user.length == stv){style3="none"}%>
             <div class="blanket_form--above"></div>
             <div class="blanket_form--under">
                 <div>
@@ -74,9 +76,9 @@
                         </h1>
                         <div><a href="/"><i class="fa-solid fa-x"></i></a></div>
                     </div>
-                    <form style="display: <%=style1%>;" action="">
+                    <form style="display: <%=style1%>;" action="/match/<%= detail.id %>/1" method="POST">
                         <div class="">
-                            <% let names=[]; phones=[]; %>
+                            <% let names=[]; phones=[]; %>  
                                 <% for (let i of users) { %>
                                     <% let p=userAll.find(j=> j.id == i); %>
                                         <% if (p) { %>
@@ -86,18 +88,19 @@
                                                         <div>
                                                             <div>
                                                                 <label for=""></label>
-                                                                <input type="text" value="<%=names[0]%>" placeholder="Chưa có người tham gia" readonly>
+                                                                <input type="text" value="<%=names[0]%>"
+                                                                    placeholder="Chưa có người tham gia" readonly>
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <div>
                                                                 <label for=""></label>
-                                                                <input type="text" value="<%=names[1]%>" placeholder="Chưa có người tham gia" readonly>
+                                                                <input type="text" value="<%=names[1]%>"
+                                                                    placeholder="Chưa có người tham gia" readonly>
                                                             </div>
                                                         </div>
-
                         </div>
-                        <div class="btnJoin">
+                        <div style="display: <%=style3%>;" class="btnJoin">
                             <button class="" type="submit">Tham gia</button>
                         </div>
                     </form>
@@ -106,49 +109,65 @@
                             <div>
                                 <div>
                                     <label for=""></label>
-                                    <input type="text" value="<%=names[0]%>"  placeholder="Chưa có người tham gia" readonly>
+                                    <input type="text" value="<%=names[0]%>" placeholder="Chưa có người tham gia"
+                                        readonly>
                                 </div>
                                 <div>
                                     <label for=""></label>
-                                    <input type="text" value="<%=names[1]%>"  placeholder="Chưa có người tham gia" readonly>
+                                    <input type="text" value="<%=names[1]%>" placeholder="Chưa có người tham gia"
+                                        readonly>
                                 </div>
                             </div>
                             <div>
                                 <div>
                                     <label for=""></label>
-                                    <input type="text" value="<%=names[2]%>"  placeholder="Chưa có người tham gia" readonly>
+                                    <input type="text" value="<%=names[2]%>" placeholder="Chưa có người tham gia"
+                                        readonly>
                                 </div>
                                 <div>
                                     <label for=""></label>
-                                    <input type="text" value="<%=names[3]%>"  placeholder="Chưa có người tham gia" readonly>
+                                    <input type="text" value="<%=names[3]%>" placeholder="Chưa có người tham gia"
+                                        readonly>
                                 </div>
                             </div>
                         </div>
-                        <div class="btnJoin">
+                        <div style="display: <%=style3%>;" class="btnJoin">
                             <button class="" type="submit">Tham gia</button>
                         </div>
                     </form>
-                    <div  style="display: <%=style1%>;" class="form__contact">
+                    <div style="display: <%=style1%>;" class="form__contact">
                         <h1>Liên hệ Tuyển thủ:</h1>
                         <div>
                             <div class="contact__team1">
-                                <div>SĐT (TT1):<span><%=phones[0] ? phones[0] : "Chưa có"%></span></div>
+                                <div>SĐT (TT1):<span>
+                                        <%=phones[0] ? phones[0] : "Chưa có" %>
+                                    </span></div>
                             </div>
                             <div class="contact__team">
-                                <div>SĐT (TT2):<span> <%=phones[1] ? phones[1] : "Chưa có"%></span></div>
+                                <div>SĐT (TT2):<span>
+                                        <%=phones[1] ? phones[1] : "Chưa có" %>
+                                    </span></div>
                             </div>
                         </div>
                     </div>
-                    <div  style="display: <%=style2%>;" class="form__contact">
+                    <div style="display: <%=style2%>;" class="form__contact">
                         <h1>Liên hệ Tuyển thủ:</h1>
                         <div>
                             <div class="contact__team1">
-                                <div>SĐT (TT1):<span><%=phones[0] ? phones[0] : "Chưa có"%></span></div>
-                                <div>SĐT (TT2):<span><%=phones[1] ? phones[1] : "Chưa có"%></span></div>
+                                <div>SĐT (TT1):<span>
+                                        <%=phones[0] ? phones[0] : "Chưa có" %>
+                                    </span></div>
+                                <div>SĐT (TT2):<span>
+                                        <%=phones[1] ? phones[1] : "Chưa có" %>
+                                    </span></div>
                             </div>
                             <div class="contact__team">
-                                <div>SĐT (TT1):<span><%=phones[2] ? phones[2] : "Chưa có"%></span></div>
-                                <div>SĐT (TT2):<span><%=phones[3] ? phones[3] : "Chưa có"%></span></div>
+                                <div>SĐT (TT1):<span>
+                                        <%=phones[2] ? phones[2] : "Chưa có" %>
+                                    </span></div>
+                                <div>SĐT (TT2):<span>
+                                        <%=phones[3] ? phones[3] : "Chưa có" %>
+                                    </span></div>
                             </div>
                         </div>
                     </div>

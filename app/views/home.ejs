@@ -18,8 +18,8 @@
             </div>
             <div class="content--body">
                   <table class="styled-table">
-                        <thead >
-                              <tr  style="text-align: center;">
+                        <thead>
+                              <tr style="text-align: center;">
                                     <th>Mã đội</th>
                                     <th>Tổ đội</th>
                                     <th>Giới - Ngày</th>
@@ -28,19 +28,27 @@
                               </tr>
                         </thead>
                         <tbody style="text-align: center;">
-                              <% let stv; %>
-                              <% for (let i of matches) { %>
-                                  
-                                  
-                                  <% if (i.categoriesID == 1) { stv = 2; doi = "Đơn" } else if (i.categoriesID == 2) { stv = 4;  doi = "Đôi"  } %>
-                                  <tr>
-                                      <td># <%= i.id %></td>
-                                      <td><%= doi %></td>
-                                      <td><%= i.dateStart %></td>
-                                      <td> | <%= stv %></td>
-                                      <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
-                                  </tr>
-                              <% } %>
+                              <% let stv; let playerNow%>
+                                    <% for (let i of matches) { %>
+                                          <%playerNow=JSON.parse(i.player)%>
+
+                                                <% if (i.categoriesID==1) { stv=2; doi="Đơn" } else if
+                                                      (i.categoriesID==2) { stv=4; doi="Đôi" } %>
+                                                      <tr>
+                                                            <td># <%= i.id %>
+                                                            </td>
+                                                            <td>
+                                                                  <%= doi %>
+                                                            </td>
+                                                            <td>
+                                                                  <%= i.dateStart %>
+                                                            </td>
+                                                            <td>
+                                                                  <%=playerNow.user.length%> | <%= stv %>
+                                                            </td>
+                                                            <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
+                                                      </tr>
+                                                      <% } %>
                         </tbody>
                   </table>
             </div>
