@@ -1,11 +1,12 @@
 const express = require('express');
-const { homePage,matchTeam,joinTeam } = require('../controller/homeController');
+const { homePage,login, matchTeam,joinTeam } = require('../controller/homeController');
 
 let router = express.Router();
 
 // router =============================================================================<
 //page
 router.get('/', homePage)
+router.get("/login", login);
 
 //detail page 
 router.get('/match/team/:id', matchTeam);

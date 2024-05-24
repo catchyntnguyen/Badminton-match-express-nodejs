@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Webstie Icon" type="png" href="../images/Logo_Ananas_Header.svg">
+    <title>Ananas - DiscoverYOU</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <!-- <link rel="stylesheet" href="../styles/toastMessage.css"> -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap');
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+</head>
+<body>
+    <div class="container__full">
+        <div class="container__main">
+            <div class="container__main--login">
+                <section class="section__form section__form--login">
+                    <form class="form__login" name="form__login" method="post" action="/login">
+                        <h1 class="title">Đăng Nhập</h1>
+                        <div class="form__group">
+                            <ion-icon class="form__icon icon-input" name="mail-outline"></ion-icon>
+                            <input class="form__input email--input" name="emailLogin" type="email" placeholder=" ">
+                            <label class="label__place" for="">Email</label>
+                            <span class="form__message form__message-email"></span>
+                        </div>
+                        <div class="form__group">
+                            <input class="form__input password--input" name="passwordLogin" type="password" placeholder=" ">
+                            <label class="label__place" for="">Mật khẩu</label>
+                            <span class="form__message"></span>
+                            <div class="show-hidden_password">
+                                <ion-icon class="form__icon eye-icon" name="lock-closed-outline"></ion-icon>
+                                <ion-icon class="form__icon eye-icon eye-active" name="lock-open-outline"></ion-icon>
+                            </div>
+                        </div>
+                        <div class="forget">
+                            <label class="forget__label" for=""><input type="checkbox">Nhớ mật khẩu</label>
+                            <a class="forget__password" href="#">Quên mật khẩu</a>
+                        </div>
+                        <button type="submit" class="button__login" id="loginButton">Đăng nhập</button>
+                        <div class="register">
+                            <p>Bạn chưa có tài khoản? <span class="form_register"
+                                    style="cursor: pointer; font-weight: 800;">Đăng ký</span></p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="container__main--register">
+                <section class="section__form">
+                    <form class="form__register" name="form__register" action="/register" method="POST">
+                        <h1 class="title">Đăng Ký</h1>
+                        <div class="form__group">
+                            <ion-icon class="form__icon icon-input" name="code-working-outline"></ion-icon>
+                            <input class="form__input nameAccount--input" name="nameAccountRegister" type="text" placeholder=" ">
+                            <label class="label__place" for="">Tên tài khoản</label>
+                            <span class="form__message"></span>
+                        </div>
+                        <div class="form__group">
+                            <ion-icon class="form__icon icon-input" name="mail-outline"></ion-icon>
+                            <input class="form__input email--input" name="emailAccountRegister" type="email" placeholder=" ">
+                            <label class="label__place" for="">Email</label>
+                            <span class="form__message form__message-email"></span>
+                        </div>
+                        <div class="form__group">
+                            <input class="form__input password--input" name="passwordAccountRegister" type="password" placeholder=" ">
+                            <label class="label__place" for="">Mật khẩu</label>
+                            <span class="form__message"></span>
+                            <div class="show-hidden_password">
+                                <ion-icon class="form__icon eye-icon" name="lock-closed-outline"></ion-icon>
+                                <ion-icon class="form__icon eye-icon eye-active" name="lock-open-outline"></ion-icon>
+                            </div>
+                        </div>
+                        <!-- <div class="forget">
+                            <label class="forget__label" for=""><input type="checkbox">Nhớ mật khẩu</label>
+                            <a class="forget__password" href="#">Quên mật khẩu</a>
+                        </div> -->
+                        <button class="button__login" id="registerButton" type="submit" name="button__register">Đăng ký</button>
+                        <div class="register">
+                            <p>Bạn đã có tài khoản? <span class="form_login"
+                                    style="cursor: pointer; font-weight: 800;">Đăng nhập.</span></p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="../js/account.js"></script>
+    <!-- <script src="../js/slick-slider.js"></script>
+    <script src="../js/lazy-load.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/validator/validato.js"></script> -->
+    <!-- <script>
+        Validator({
+            formSelector: '.form__login',
+            formGroupSelector: '.form__group',
+            formMessage: '.form__message',
+            rules: [
+                Validator.isRequired('.email--input'),
+                Validator.isEmail('.email--input'),
+                Validator.isRequired('.password--input'),
+                Validator.isPassword('.password--input'),
+            ]
+        });
+        Validator({
+            formSelector: '.form__register',
+            formGroupSelector: '.form__group',
+            formMessage: '.form__message',
+            rules: [
+                Validator.isRequired('.nameAccount--input'),
+                Validator.isRequired('.email--input'),
+                Validator.isEmail('.email--input'),
+                Validator.isRequired('.password--input'),
+                Validator.isPassword('.password--input'),
+            ]
+        })
+    </script>
+    <script> var exports = {}; </script>
+    <script type="module" src="/public/ts/login.js"></script>
+    <script type="module" src="/public/ts/register.js"></script>
+    <script type="module" src="/public/ts/toastMessage.js"></script> -->
+</body>
+
+</html>

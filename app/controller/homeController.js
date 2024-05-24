@@ -1,32 +1,45 @@
 //khai báo modules
-const sequelize = require('../configs/connectDB');
-const { Sequelize, QueryTypes } = require('sequelize');
+const sequelize = require("../configs/connectDB");
+const { Sequelize, QueryTypes } = require("sequelize");
 
 //hàm tìm id sẵn
 const getid = (data, id) => {
-    return data.find((i) => i.id === id);
-}
+  return data.find((i) => i.id === id);
+};
 // Hàm xử lý trang chủ
 let error = null;
 const homePage = async (req, res) => {
+<<<<<<< HEAD
     const matches = await sequelize.query('SELECT * FROM matches_detail', {
         type: QueryTypes.SELECT
     });
     res.render('home', { matches: matches});
+=======
+  const matches = await sequelize.query("SELECT * FROM matches_detail", {
+    type: QueryTypes.SELECT,
+  });
+  res.render("home", { matches: matches });
+};
+const login = async (req, res) => {
+  //   const matches = await sequelize.query("SELECT * FROM matches_detail", {
+  //     type: QueryTypes.SELECT,
+  //   });
+  res.render("account");
+>>>>>>> 93ec42bf16c3b30946cd2740ec6374effe0e23f1
 };
 const matchTeam = async (req, res) => {
-    const matches = await sequelize.query('SELECT * FROM matches_detail', {
-        type: QueryTypes.SELECT
-    });
-    const userAll = await sequelize.query('SELECT * FROM users', {
-        type: QueryTypes.SELECT
-    });
-    let id = Number(req.params.id);
-    let detail = getid(matches, id);
-    let players = JSON.parse(detail.player);
-    let users = players.user
-    res.render('match_detail', { matches: matches, detail, users, userAll });
-}
+  const matches = await sequelize.query("SELECT * FROM matches_detail", {
+    type: QueryTypes.SELECT,
+  });
+  const userAll = await sequelize.query("SELECT * FROM users", {
+    type: QueryTypes.SELECT,
+  });
+  let id = Number(req.params.id);
+  let detail = getid(matches, id);
+  let players = JSON.parse(detail.player);
+  let users = players.user;
+  res.render("match_detail", { matches: matches, detail, users, userAll });
+};
 const joinTeam = async (req, res) => {
     try {
         const userAll = await sequelize.query('SELECT * FROM users', {
@@ -78,7 +91,8 @@ const joinTeam = async (req, res) => {
 };
 
 module.exports = {
-    homePage,
-    matchTeam,
-    joinTeam
+  homePage,
+  login,
+  matchTeam,
+  joinTeam,
 };

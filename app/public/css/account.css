@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&family=Work+Sans:wght@300;500&display=swap');
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-family: 'Work Sans', sans-serif;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: none;
+}
+
+:root {
+    --trans-bounce: 0.22s cubic-bezier(0.23, 1, 0.320, 1);
+    --trans-bounce2: 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    --trans-bounce3: 2s cubic-bezier(0.23, 1, 0.320, 1);
+}
+.container__full {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.container__main {
+    width: auto;
+    height: 100%;
+    display: flex;
+    transition: var(--trans-bounce3);
+}
+.container__main--login {
+    min-width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('../images/backgroundLogin.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.container__main--register {
+    min-width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('../images/backgroundRegister.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.translate-container {
+    transform: translateX(-100vw);
+}
+.section__form {
+    position: relative;
+    width: 400px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+}
+
+form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+    /* margin-bottom: 40px; */
+}
+.form__group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 60px;
+    /* border-bottom: 2px solid white; */
+}
+.form__icon {
+    position: absolute;
+    font-size: 25px;
+    color: white;
+}
+.form__input {
+    width: 100%;
+    height: 50px;
+    background-color: inherit;
+    outline: none;
+    border: none;
+    color: white;
+}
+.label__place {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-75%);
+    color: white;
+    transition: all 0.25s ease-in;
+    pointer-events: none;
+}
+.form__message {
+    font-size: 13px;
+    font-weight: 200;
+    position: relative;
+    color: orange;
+}
+.form__message::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+.icon-input {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-100%);
+}
+.show-hidden_password {
+    width: 40px;
+    height: 40px;
+    background-color: inherit;
+    border: none;
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+.forget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.forget__label {
+    display: flex;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 200;
+    color: white;
+}
+.forget__password {
+    color: white;
+    text-decoration: none;
+}
+.button__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #fff;
+    user-select: none;
+}
+.register {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+.register p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+.register a {
+   text-decoration: none;
+   color: #fff;
+}
+
+/*  HIỆU ỨNG KHI FOCUS INPUT */
+.form__input:not(:placeholder-shown) + .label__place,
+.form__input:focus + .label__place {
+    top: 0;
+    display: inline-block;
+}
+.eye-active {
+    display: none;
+}
+
+.error-text {
+    color: red;
+}
+.error-block {
+    background-color: red;
+}
+
+.form_login,
+.form_register {
+    color: orange !important;
+}
+.toast {
+    width: auto;
+    height: auto;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-radius: 2px;
+    border-left: 4px solid #41d15e;
+    box-shadow: var(--box-shadow2);
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    right: 30px;
+    padding: 20px 0;
+    animation: slideInLeft ease 0.5s, fadeOut linear 1s 3s forwards;
+  }
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(110%); 
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0); 
+    }
+  }
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+    }
+  }
+.showToast {
+  transition: 0.5s ease !important;
+  transform: translateX(0) !important;
+}
+.toast__icon {
+  font-size: 25px;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #41d15e;
+  cursor: pointer;
+}
+.toastMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+.toastMessage__title  {
+  font-size: 20px;
+  font-weight: 800;
+  color: #41d15e;
+}
+.toastMessage__content {
+  font-size: 15px;
+}
+.toastButton{
+  padding: 0 16px;
+  font-size: 25px;
+  color: #6C9CA4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+.toastButton:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+.toastButton::after {
+  width: 120px;
+  height: 25px;
+  content: "Trở lại trang chủ";
+  position: absolute;
+  font-size: 12px;
+  top: -10px;
+  right: 20px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  color: gray;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--trans-bounce2);
+} 
+.icon__error {
+  display: none;
+}
+.error {
+  border-left: 4px solid #ea3869 !important;
+}
+.error .toast__icon {
+  color: #ea3869 !important;
+}
+.error .icon__success {
+  display: none;
+}
+.error .icon__error {
+  display: block !important;
+}
+.error .toastMessage__title {
+  color: #ea3869 !important;
+}
