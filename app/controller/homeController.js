@@ -4,34 +4,80 @@ const { Sequelize, QueryTypes } = require("sequelize");
 
 //hàm tìm id sẵn
 const getid = (data, id) => {
-  return data.find((i) => i.id === id);
+    return data.find((i) => i.id === id);
 };
 // Hàm xử lý trang chủ
 let error = null;
 const homePage = async (req, res) => {
-  const matches = await sequelize.query("SELECT * FROM matches_detail", {
-    type: QueryTypes.SELECT,
-  });
-  res.render("home", { matches: matches });
+    const matches = await sequelize.query("SELECT * FROM matches_detail", {
+        type: QueryTypes.SELECT,
+    });
+    res.render("home", { matches: matches });
 };
 const login = async (req, res) => {
-  //   const matches = await sequelize.query("SELECT * FROM matches_detail", {
-  //     type: QueryTypes.SELECT,
-  //   });
-  res.render("account");
+    const userAll = await sequelize.query("SELECT * FROM users", {
+        type: QueryTypes.SELECT,
+    });
+    res.render("account");
 };
+const logOut = (req, res) => {
+    localStorage.clear();
+    res.redirect("/?error=" + encodeURIComponent(error));
+};
+const loginHandler = async (req, res) => {
+    const userAll = await sequelize.query("SELECT * FROM users", {
+        type: QueryTypes.SELECT,
+    });
+    const email = req.body.emailLogin;
+    const password = req.body.passwordLogin;
+    const user = userAll.find((user) => user.email === email);
+    if (!user) {
+        error = "Email không tồn tại!!!";
+    }
+    else {
+        if (password === user.password) {
+            if (user.role == 1) {
+                const userData = Object.values(user);
+                localStorage.setItem("user", JSON.stringify(userData));
+                res.redirect("/");
+            }
+            else {
+                const userData = Object.values(user);
+                localStorage.setItem("user", JSON.stringify(userData));
+                res.redirect("/");
+            }
+        }
+        else {
+            error = "Mật khẩu không đúng bạn ơi!!!"
+        }
+    }
+};
+const registerHandler = async (req, res) => {
+    try {
+        let { nameAccountRegister, emailAccountRegister, passwordAccountRegister } = req.body;
+        await sequelize.query(
+            'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+            { replacements: [nameAccountRegister, emailAccountRegister, passwordAccountRegister, 0] }
+        );
+        return res.redirect("/login");
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send('Lỗi máy chủ');
+    }
+};
+
 const matchTeam = async (req, res) => {
-  const matches = await sequelize.query("SELECT * FROM matches_detail", {
-    type: QueryTypes.SELECT,
-  });
-  const userAll = await sequelize.query("SELECT * FROM users", {
-    type: QueryTypes.SELECT,
-  });
-  let id = Number(req.params.id);
-  let detail = getid(matches, id);
-  let players = JSON.parse(detail.player);
-  let users = players.user;
-  res.render("match_detail", { matches: matches, detail, users, userAll });
+    const matches = await sequelize.query("SELECT * FROM matches_detail", {
+        type: QueryTypes.SELECT,
+    });
+    const userAll = await sequelize.query("SELECT * FROM users", {
+        type: QueryTypes.SELECT,
+    });
+    let id = Number(req.params.id);
+    let detail = getid(matches, id);
+    let players = JSON.parse(detail.player);
+    let users = players.user;
+    res.render("match_detail", { matches: matches, detail, users, userAll });
 };
 const joinTeam = async (req, res) => {
     try {
@@ -44,7 +90,6 @@ const joinTeam = async (req, res) => {
 
         let id = Number(req.params.id);
         let team = Number(req.params.team);
-
         let userDetail = getid(userAll, id);
         if (!userDetail) {
             return res.status(404).send('User not found');
@@ -64,7 +109,7 @@ const joinTeam = async (req, res) => {
             playerNew.user.push(id);
             teamDetail.player = JSON.stringify(playerNew);
             console.log(teamDetail);
-            
+
             await sequelize.query(
                 'UPDATE matches_detail SET player = :player WHERE id = :teamId',
                 {
@@ -72,7 +117,7 @@ const joinTeam = async (req, res) => {
                     type: QueryTypes.UPDATE
                 }
             );
-            
+
             await sequelize.query(
                 'UPDATE matches_detail SET status = :status WHERE id = :teamId',
                 {
@@ -80,7 +125,7 @@ const joinTeam = async (req, res) => {
                     type: QueryTypes.UPDATE
                 }
             );
-            
+
             return res.redirect("/");
         } else {
             let error = encodeURIComponent("Bạn-đã-có-trong-trận-đấu");
@@ -92,10 +137,12 @@ const joinTeam = async (req, res) => {
     }
 };
 
-
 module.exports = {
-  homePage,
-  login,
-  matchTeam,
-  joinTeam,
+    homePage,
+    login,
+    logOut,
+    matchTeam,
+    joinTeam,
+    loginHandler,
+    registerHandler
 };
