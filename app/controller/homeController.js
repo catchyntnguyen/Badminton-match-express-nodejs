@@ -9,12 +9,6 @@ const getid = (data, id) => {
 // Hàm xử lý trang chủ
 let error = null;
 const homePage = async (req, res) => {
-<<<<<<< HEAD
-    const matches = await sequelize.query('SELECT * FROM matches_detail', {
-        type: QueryTypes.SELECT
-    });
-    res.render('home', { matches: matches});
-=======
   const matches = await sequelize.query("SELECT * FROM matches_detail", {
     type: QueryTypes.SELECT,
   });
@@ -25,7 +19,6 @@ const login = async (req, res) => {
   //     type: QueryTypes.SELECT,
   //   });
   res.render("account");
->>>>>>> 93ec42bf16c3b30946cd2740ec6374effe0e23f1
 };
 const matchTeam = async (req, res) => {
   const matches = await sequelize.query("SELECT * FROM matches_detail", {
@@ -70,15 +63,24 @@ const joinTeam = async (req, res) => {
         if (!check) {
             playerNew.user.push(id);
             teamDetail.player = JSON.stringify(playerNew);
-
-            // await sequelize.query(
-            //     'UPDATE matches_detail SET player = :player WHERE id = :teamId',
-            //     {
-            //         replacements: { player: teamDetail.player, teamId: team },
-            //         type: QueryTypes.UPDATE
-            //     }
-            // );
-
+            console.log(teamDetail);
+            
+            await sequelize.query(
+                'UPDATE matches_detail SET player = :player WHERE id = :teamId',
+                {
+                    replacements: { player: teamDetail.player, teamId: team },
+                    type: QueryTypes.UPDATE
+                }
+            );
+            
+            await sequelize.query(
+                'UPDATE matches_detail SET status = :status WHERE id = :teamId',
+                {
+                    replacements: { status: '2', teamId: team },
+                    type: QueryTypes.UPDATE
+                }
+            );
+            
             return res.redirect("/");
         } else {
             let error = encodeURIComponent("Bạn-đã-có-trong-trận-đấu");
@@ -89,6 +91,7 @@ const joinTeam = async (req, res) => {
         return res.status(500).send('Lỗi máy chủ');
     }
 };
+
 
 module.exports = {
   homePage,
