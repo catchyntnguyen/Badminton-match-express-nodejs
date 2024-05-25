@@ -14,11 +14,60 @@ const homePage = async (req, res) => {
   res.render("home", { matches: matches , currentUrl: '/' });
 };
 const login = async (req, res) => {
-  //   const matches = await sequelize.query("SELECT * FROM matches_detail", {
-  //     type: QueryTypes.SELECT,
-  //   });
+  const userAll = await sequelize.query("SELECT * FROM users", {
+    type: QueryTypes.SELECT,
+  });
   res.render("account");
 };
+
+const logOut = (req, res) => {
+  localStorage.clear();
+  res.redirect("/?error=" + encodeURIComponent(error));
+};
+const loginHandler = async (req, res) => {
+  const userAll = await sequelize.query("SELECT * FROM users", {
+      type: QueryTypes.SELECT,
+  });
+  const email = req.body.emailLogin;
+  const password = req.body.passwordLogin;
+  const user = userAll.find((user) => user.email === email);
+  if (!user) {
+      error = "Email không tồn tại!!!";
+  }
+  else {
+      if (password === user.password) {
+          if (user.role == 1) {
+              const userData = Object.values(user);
+              localStorage.setItem("user", JSON.stringify(userData));
+              res.redirect("/");
+          }
+          else {
+              const userData = Object.values(user);
+              localStorage.setItem("user", JSON.stringify(userData));
+              res.redirect("/");
+          }
+      }
+      else {
+          error = "Mật khẩu không đúng bạn ơi!!!"
+      }
+  }
+};
+
+const registerHandler = async (req, res) => {
+  try {
+      let { nameAccountRegister, emailAccountRegister, passwordAccountRegister } = req.body;
+      await sequelize.query(
+          'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+          { replacements: [nameAccountRegister, emailAccountRegister, passwordAccountRegister, 0] }
+      );
+      return res.redirect("/login");
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send('Lỗi máy chủ');
+  }
+};
+
+
 const matchTeam = async (req, res) => {
   const matches = await sequelize.query("SELECT * FROM matches_detail", {
     type: QueryTypes.SELECT,
@@ -62,14 +111,21 @@ const joinTeam = async (req, res) => {
         if (!check) {
             playerNew.user.push(id);
             teamDetail.player = JSON.stringify(playerNew);
+            await sequelize.query(
+              'UPDATE matches_detail SET player = :player WHERE id = :teamId',
+              {
+                  replacements: { player: teamDetail.player, teamId: team },
+                  type: QueryTypes.UPDATE
+              }
+          );
 
-            // await sequelize.query(
-            //     'UPDATE matches_detail SET player = :player WHERE id = :teamId',
-            //     {
-            //         replacements: { player: teamDetail.player, teamId: team },
-            //         type: QueryTypes.UPDATE
-            //     }
-            // );
+          await sequelize.query(
+              'UPDATE matches_detail SET status = :status WHERE id = :teamId',
+              {
+                  replacements: { status: '2', teamId: team },
+                  type: QueryTypes.UPDATE
+              }
+          );
 
             return res.redirect("/");
         } else {
@@ -160,10 +216,13 @@ const postcreateMatch = async (req, res) => {
 module.exports = {
   homePage,
   login,
+  logOut,
   matchTeam,
   joinTeam,
   historyPage,
   createMatch,
   postcreateMatch,
-  historyDetail
+  historyDetail,
+  loginHandler,
+  registerHandler
 };
