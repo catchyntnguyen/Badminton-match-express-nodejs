@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" sizes="96x96" href="../favicon_io/favicon.ico">
+  <title>FOUR BUG TEAM</title>
+  <link rel="stylesheet" href="../css/output.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<style>
+  .content--header {
+    background-color: #E4E4E4;
+    border-bottom: 1px solid black;
+    border-radius: 5px;
+  }
+
+  .m_c-headerAbove {
+    text-align: center;
+    height: 40px;
+  }
+
+  #table th,
+  #table td {
+    padding: 35px;
+  }
+
+  #table th {
+    color: #79747E;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #table td {
+    text-align: center;
+    border-top: 2px solid #FFD771;
+    color: #1D192B;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .container-table {
+    background: #fff;
+  }
+
+  #table .linkdetail {
+    color: #4F378B;
+  }
+
+  .blurEffect {
+    filter: blur(5px);
+  }
+
+  .popupBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+  }
+
+  .popupMatch {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1001;
+    /* Đảm bảo form nằm trên tất cả các phần tử khác */
+    display: none;
+    /* Mặc định ẩn */
+  }
+
+  .player-match {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+</style>
+
+<body>
+  <div class="container" id="contentContainer">
+    <header>
+      <h1 class="header__title">FOUR BUGS TEAM</h1>
+    </header>
+    <main>
+      <section class="main__nav">
+        <div class="infoUser">
+          <div class="avatarUser">
+            <img class="avatar"
+              src="https://cdn.dribbble.com/users/2400293/screenshots/14743996/media/84ff2a3e9945913dda969bd4f25169cd.gif"
+              alt="">
+          </div>
+          <div class="infoUser-content">
+            <span class="infoUser-nameUser">
+              Nguyễn Quốc Thành
+            </span>
+            <span class="infoUser-description">
+              Thông tin bạn cần bên dưới.
+            </span>
+          </div>
+        </div>
+        <nav class="menu">
+          <ul class="menu__ul">
+            <li class="menu__li menu__li--active"><a href="">
+                <i class="fa-solid fa-table"></i>
+                <span class="menu__title">Bảng thi đấu</span>
+              </a></li>
+            <li class="menu__li"><a href="">
+                <i class="fa-solid fa-user"></i>
+                <span class="menu__title">Thông tin</span>
+              </a></li>
+            <li class="menu__li"><a href="">
+                <i class="fa-solid fa-bars"></i>
+                <span class="menu__title">Lịch thi đấu</span>
+              </a></li>
+            <li class="menu__li"><a href="">
+                <i class="fa-solid fa-plus"></i>
+                <span class="menu__title">Tạo bản đấu</span>
+              </a></li>
+          </ul>
+        </nav>
+        <button class="buttonLogOut">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </section>
+      <section class="main__content p-3">
+        <div class="content--header">
+          <div class="m_c-headerAbove">
+            <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+          </div>
+          <div class="m_c-headerUnder">
+            <div class="headerUnder-filter">Lọc theo</div>
+            <ul>
+              <li>Đội chưa đủ người</li>
+              <li>Đội thi đấu đơn</li>
+              <li>Đội thi đấu đôi</li>
+              <li>Đội Hoàn thiện</li>
+              <li>Theo ngày</li>
+            </ul>
+          </div>
+        </div>
+        <div class="content--body w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
+          <div class="w-full container-table">
+            <table id="table" class="table hover:table-fixed w-full">
+              <tr>
+                <th class="text-center">Mã đội</th>
+                <th>Hạn đội</th>
+                <th>Giờ - Ngày</th>
+                <th>Trạng thái</th>
+                <th>Tỉ số</th>
+                <th>Khác</th>
+              </tr>
+              <tr class="td-table">
+                <td>#1D192B</td>
+                <td>Đơn</td>
+                <td>12/05/2024</td>
+                <td>Sắp diễn ra</td>
+                <td>
+                  <div class="flex gap-2">
+                    <span>1</span>
+                    <span>|</span>
+                    <span>2</span>
+                  </div>
+                </td>
+                <td><button id="showdetail" class="linkdetail">Xem thêm chi tiết</button></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <ul>
+        <li>Trần Thị Hồng Ngọc</li>
+        <li>Nguyễn Trần Khắc Duy</li>
+        <li>Nguyễn Quốc Thành</li>
+        <li>Cao Hoàng Thành</li>
+        <li>FB: FourBugs-team</li>
+        <li>ZL: Nâng tầm fix bugs</li>
+        <li>Liên hệ: 0348378112 (Khắc Duy)</li>
+        <li>Giảng viên: Iris Mint</li>
+      </ul>
+    </footer>
+  </div>
+  <div class="popupBackground" id="popupBackground"></div>
+  <div class="popupMatch" id="matchForm" style="width: 600px;">
+    <div class="flex flex-col gap-5">
+      <div class="flex">
+        <div class="flex gap-2">
+          <span># Mã đội</span>
+          <span>- Đơn</span>
+          <span>- 9h30-11/5</span>
+        </div>
+        <div class="" style="margin-left: auto;">
+          <button id="closebtn" class=""><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="player-match">
+        <div class="rounded border" style="padding: 20px">
+          <span>Nguyễn Trần Khắc Duy</span>
+        </div>
+        <div class="rounded border" style="padding: 20px">
+          <span>Nguyễn Trần Khắc Duy</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3" style="margin-top: 25px;">
+        <h3>Liên hệ Tuyển Thủ:</h3>
+        <div class="player-match">
+          <span>SĐT (TT1): 0348389112</span>
+          <span>SĐT (TT1): 0348389112</span>
+          <span>SĐT (TT1): 0348389112</span>
+          <span>SĐT (TT1): 0348389112</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3" style="margin-top: 25px;">
+        <h3>Vị trí sân đấu</h3>
+        <span>313 - Tô ký - Trung Mỹ Tây - Quận 12 313 - Tô ký - Trung Mỹ Tây - Quận 12</span>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const showdetail = document.getElementById('showdetail');
+  const mainContainer = document.getElementById('mainContainer');
+  const contentContainer = document.getElementById('contentContainer');
+  const matchForm = document.getElementById('matchForm');
+  const popupBackground = document.getElementById('popupBackground');
+  const closebtn = document.getElementById('closebtn');
+  showdetail.addEventListener('click', () => {
+    contentContainer.classList.add('blurEffect');
+    matchForm.style.display = 'block';
+    popupBackground.style.display = 'block';
+  });
+
+  popupBackground.addEventListener('click', () => {
+    contentContainer.classList.remove('blurEffect');
+    matchForm.style.display = 'none';
+    popupBackground.style.display = 'none';
+  });
+  closebtn.addEventListener('click', () => {
+    contentContainer.classList.remove('blurEffect');
+    matchForm.style.display = 'none';
+    popupBackground.style.display = 'none';
+  });
+</script>
+
+</html>

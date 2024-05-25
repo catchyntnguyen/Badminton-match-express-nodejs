@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" id="contentContainer">
     <header>
       <h1 class="header__title">FOUR BUGS TEAM</h1>
     </header>
@@ -42,19 +42,19 @@
         </div>
         <nav class="menu">
           <ul class="menu__ul">
-            <li class="menu__li menu__li--active"><a href="">
+            <li class="menu__li <%= currentUrl === '/' ? 'menu__li--active' : '' %>"><a href="/">
                 <i class="fa-solid fa-table"></i>
                 <span class="menu__title">Bảng thi đấu</span>
               </a></li>
-            <li class="menu__li"><a href="">
+            <li class="menu__li <%= currentUrl === '/info' ? 'menu__li--active' : '' %>"><a href="/info">
                 <i class="fa-solid fa-user"></i>
                 <span class="menu__title">Thông tin</span>
               </a></li>
-            <li class="menu__li"><a href="">
+            <li class="menu__li <%= currentUrl === '/history' ? 'menu__li--active' : '' %>"><a href="/history">
                 <i class="fa-solid fa-bars"></i>
                 <span class="menu__title">Lịch thi đấu</span>
               </a></li>
-            <li class="menu__li"><a href="">
+            <li class="menu__li <%= currentUrl === '/createMatch' ? 'menu__li--active' : '' %>"><a href="/createMatch">
                 <i class="fa-solid fa-plus"></i>
                 <span class="menu__title">Tạo bản đấu</span>
               </a></li>

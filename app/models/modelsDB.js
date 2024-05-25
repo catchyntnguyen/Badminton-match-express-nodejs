@@ -1,14 +1,13 @@
-const sequelize = require('../config/db');
-
+const sequelize = require('../configs/connectDB.js');
 const { Sequelize } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const Product = sequelize.define('Product', {
+const Matches = sequelize.define('matches_details', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  idCategory: {
+  categoriesID: {
     type: Sequelize.INTEGER,
     allowNull: false, // Đảm bảo idCategory không thể là null
     references: {
@@ -18,28 +17,36 @@ const Product = sequelize.define('Product', {
     onUpdate: 'CASCADE', // Tùy chọn để cập nhật các bản ghi con khi bản ghi cha thay đổi
     onDelete: 'CASCADE', // Tùy chọn để xóa các bản ghi con khi bản ghi cha bị xóa
   },
-  name: {
+  scoreT1: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  description:{
+  status:{
     type: Sequelize.STRING,
     allowNull: false,
   },
-  img: {
+  dateStart: {
+    type: Sequelize.DATE,
+    allowNull: false,
+  },
+  dateEnd:{
+    type: Sequelize.DATE,
+    allowNull: false,
+  },
+  player: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  price:{
+  coreT2:{
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  views: {
-    type: Sequelize.INTEGER,
+  Time:{
+    type: Sequelize.DATE,
     allowNull: false,
   },
-  favorite:{
-    type: Sequelize.BOOLEAN,
+  location:{
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
@@ -56,6 +63,6 @@ const Categories = sequelize.define('Categories', {
 });
 
 module.exports = {
-  Product,
+  Matches,
   Categories,
 };

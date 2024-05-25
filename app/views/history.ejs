@@ -1,0 +1,120 @@
+
+<%- include('header.ejs')%>
+<section class="main__content p-3">
+        <div class="content--header">
+          <div class="m_c-headerAbove">
+            <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+          </div>
+          <div class="m_c-headerUnder">
+            <div class="headerUnder-filter">Lọc theo</div>
+            <ul>
+              <li>Đội chưa đủ người</li>
+              <li>Đội thi đấu đơn</li>
+              <li>Đội thi đấu đôi</li>
+              <li>Đội Hoàn thiện</li>
+              <li>Theo ngày</li>
+            </ul>
+          </div>
+        </div>
+        <div class=" w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
+          <div class="w-full container-table">
+            <table id="table" class="table hover:table-fixed w-full">
+                <tr>
+                    <th class="text-center">Mã đội</th>
+                    <th>Hạn đội</th>
+                    <th>Giờ - Ngày</th>
+                    <th>Trạng thái</th>
+                    <th>Tỉ số</th>
+                    <th>Khác</th>
+                </tr>
+                <%for(let item of matches){%>
+                    <tr class="td-table">
+                        <td>#<%=item.id%></td>
+                        <td><%=item.categoriesID == 1? "Đơn" : "Đôi"%></td>
+                        <td><%=item.dateStart%></td>
+                        <td>Sắp diễn ra</td>
+                        <td>
+                          <div class="flex gap-2">
+                            <span>1</span>
+                            <span>|</span>
+                            <span>2</span>
+                          </div>
+                        </td>
+                        <td>
+                            <a href="/history/<%=item.id%>" class="linkdetail">Xem thêm chi tiết</a>
+                        </td>
+                      </tr>
+                    <%}%>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="popupBackground" id="popupBackground"></div>
+    <div class="popupMatch" id="matchForm" style="width: 600px;">
+      <div class="flex flex-col gap-5">
+        <div class="flex">
+          <div class="flex gap-2">
+            <span>#<%=detail%></span>
+            <span>- Đơn</span>
+            <span>- 9h30-11/5</span>
+          </div>
+          <div class="" style="margin-left: auto;">
+            <button id="closebtn" class=""><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="player-match">
+          <div class="rounded border" style="padding: 20px">
+            <span>Nguyễn Trần Khắc Duy</span>
+          </div>
+          <div class="rounded border" style="padding: 20px">
+            <span>Nguyễn Trần Khắc Duy</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3" style="margin-top: 25px;">
+          <h3>Liên hệ Tuyển Thủ:</h3>
+          <div class="player-match">
+            <span>SĐT (TT1): 0348389112</span>
+            <span>SĐT (TT1): 0348389112</span>
+            <span>SĐT (TT1): 0348389112</span>
+            <span>SĐT (TT1): 0348389112</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3" style="margin-top: 25px;">
+          <h3>Vị trí sân đấu</h3>
+          <span>313 - Tô ký - Trung Mỹ Tây - Quận 12 313 - Tô ký - Trung Mỹ Tây - Quận 12</span>
+        </div>
+      </div>
+    </div>
+    <%- include('footer.ejs')%>
+  </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const linkDetails = document.querySelectorAll('.linkdetail');
+  const matchForm = document.getElementById('matchForm');
+  const popupBackground = document.getElementById('popupBackground');
+  const closebtn = document.getElementById('closebtn');
+
+  linkDetails.forEach(link => {
+    link.addEventListener('click', (e) => {
+      matchForm.style.display = 'block';
+      popupBackground.style.display = 'block';
+      e.preventDefault();
+    });
+  });
+
+  popupBackground.addEventListener('click', () => {
+    matchForm.style.display = 'none';
+    popupBackground.style.display = 'none';
+  });
+
+  closebtn.addEventListener('click', () => {
+    matchForm.style.display = 'none';
+    popupBackground.style.display = 'none';
+  });
+});
+
+
+</script>
+
+</html>

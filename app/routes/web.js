@@ -1,5 +1,5 @@
 const express = require('express');
-const { homePage,login, matchTeam,joinTeam, loginHandler, registerHandler, logOut  } = require('../controller/homeController');
+const { homePage,login, matchTeam,joinTeam, historyPage, createMatch, postcreateMatch, historyDetail } = require('../controller/homeController');
 
 let router = express.Router();
 
@@ -7,14 +7,17 @@ let router = express.Router();
 //page
 router.get('/', homePage)
 router.get("/login", login);
-router.get("/logOut", logOut);
+router.get('/createMatch', createMatch);
+router.get('/history', historyPage)
+// router.get("/logOut", logOut);
 
 //detail page 
 router.get('/match/team/:id', matchTeam);
-
+router.get('/history/:id', historyPage);
 // handlers 
 router.post('/match/:team/:id', joinTeam);
-router.post("/loginHandler", loginHandler);
+router.post('/createMatch', postcreateMatch);
+// router.post("/loginHandler", loginHandler);
 router.post("/registerHandler", registerHandler);
 
 module.exports = router;
