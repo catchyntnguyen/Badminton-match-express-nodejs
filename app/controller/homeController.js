@@ -1,7 +1,7 @@
 //khai báo modules
 const sequelize = require("../configs/connectDB");
 const { Sequelize, QueryTypes } = require("sequelize");
-
+const { Matches } = require("../models/modelsDB");
 //hàm tìm id sẵn
 const getid = (data, id) => {
   return data.find((i) => i.id === id);
@@ -9,23 +9,16 @@ const getid = (data, id) => {
 // Hàm xử lý trang chủ
 let error = null;
 const homePage = async (req, res) => {
-<<<<<<< HEAD
-    const matches = await sequelize.query('SELECT * FROM matches_detail', {
-        type: QueryTypes.SELECT
-    });
-    res.render('home', { matches: matches});
-=======
   const matches = await sequelize.query("SELECT * FROM matches_detail", {
     type: QueryTypes.SELECT,
   });
-  res.render("home", { matches: matches });
+  res.render("home", { matches: matches , currentUrl: '/' });
 };
 const login = async (req, res) => {
   //   const matches = await sequelize.query("SELECT * FROM matches_detail", {
   //     type: QueryTypes.SELECT,
   //   });
   res.render("account");
->>>>>>> 93ec42bf16c3b30946cd2740ec6374effe0e23f1
 };
 const matchTeam = async (req, res) => {
   const matches = await sequelize.query("SELECT * FROM matches_detail", {
@@ -38,7 +31,7 @@ const matchTeam = async (req, res) => {
   let detail = getid(matches, id);
   let players = JSON.parse(detail.player);
   let users = players.user;
-  res.render("match_detail", { matches: matches, detail, users, userAll });
+  res.render("match_detail", { matches: matches, detail, users, userAll , currentUrl: '/matches' });
 };
 const joinTeam = async (req, res) => {
     try {
@@ -90,9 +83,88 @@ const joinTeam = async (req, res) => {
     }
 };
 
+const historyPage = async (req, res) => {
+  try {
+    const userId = 1;
+    const matches = await sequelize.query(
+      `SELECT * FROM matches_detail WHERE JSON_CONTAINS(player, '[${userId}]', '$.user') AND status = 3`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );
+    const matchId = Number(req.params.id);
+    // const matchDetails = await sequelize.query('SELECT * FROM matches_detail WHERE id = ?', {
+    //   replacements: [matchId],
+    //   type: QueryTypes.SELECT
+    // });
+    const matchesbyID = await sequelize.query("SELECT * FROM matches_detail", {
+      type: QueryTypes.SELECT,
+    });
+    console.log(matchId);
+    const detail = getid(matchesbyID, matchId );
+    res.render('history', { currentUrl: '/history', matches, detail});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Đã xảy ra lỗi' });
+  }
+}
+
+const historyDetail = async (req, res) => {
+  try {
+    const matchId = Number(req.params.id);
+    const matchDetails = await sequelize.query('SELECT * FROM matches_detail WHERE id = ?', {
+      replacements: [matchId],
+      type: QueryTypes.SELECT
+    });
+    res.render('history', { currentUrl: '/history', matchDetails });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Đã xảy ra lỗi' });
+  }
+};
+
+const createMatch = async (req, res) => {
+  try {
+    const showMatch = await sequelize.query('SELECT * FROM matches_detail', {
+      type: QueryTypes.SELECT
+    });
+    
+    console.log(showMatch);
+    res.render('createMatch', { currentUrl: '/createMatch', showMatch });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const postcreateMatch = async (req, res) => {
+  try {
+    const { matchType, matchDate, matchTime, matchLocation } = req.body;
+    const user = 1;
+    const playerArray = [user];
+    const playerJSON = JSON.stringify({ user: playerArray });
+
+    const query = `
+      INSERT INTO matches_detail (categoriesID, scoreT1, status, dateStart, dateEnd, player, coreT2, time, location)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    await sequelize.query(query, {
+      replacements: [matchType, 0, 1, matchDate, "", playerJSON, 0, matchTime, matchLocation],
+      type: QueryTypes.INSERT
+    });
+    res.redirect('createMatch');
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error creating match');
+  }
+};
+
 module.exports = {
   homePage,
   login,
   matchTeam,
   joinTeam,
+  historyPage,
+  createMatch,
+  postcreateMatch,
+  historyDetail
 };

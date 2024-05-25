@@ -63,7 +63,8 @@ header {
 main {
   padding: 0 160px;
   width: 100%;
-  height: 543px;  
+  /* height: 543px;   */
+  height: 100vh;  
   display: flex;
   background-color: lightcyan;
 }
@@ -216,7 +217,6 @@ footer ul {
 footer ul li {
   font-size: 14px;
 }
-// content page home
 .content--header{
 }
 .m_c-headerAbove{
@@ -300,7 +300,8 @@ footer ul li {
   z-index:10;
 }
 .blanket_form .blanket_form--above{
-  min-height:543px;
+  /* min-height:543px; */
+  height: 100vb;
   background-color:rgba(217, 217, 217, 0.8);
   z-index:10;
 }
@@ -313,7 +314,7 @@ footer ul li {
 }
 .blanket_form .blanket_form--under>div{
   position:absolute;  
-  bottom:150px;
+  bottom:220px;
   border:1px solid  black;
   width:470px;
   padding:20px;
@@ -368,4 +369,201 @@ footer ul li {
 }
 
 
-// end content page home
+#table th,
+#table td {
+  padding: 35px;
+}
+
+#table th {
+  color: #79747E;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#table td {
+  text-align: center;
+  border-top: 2px solid #FFD771;
+  color: #1D192B;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.container-table {
+  background: #fff;
+}
+
+#table .linkdetail {
+  color: #4F378B;
+}
+
+.blurEffect {
+  filter: blur(5px);
+}
+
+.popupBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+.popupMatch {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1001;
+  /* Đảm bảo form nằm trên tất cả các phần tử khác */
+  display: none;
+  /* Mặc định ẩn */
+}
+
+.player-match {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+
+form textarea {
+  padding: 30px;
+}
+
+.blurEffect {
+  filter: blur(5px);
+}
+
+.formcontainer{
+display: flex;
+gap: 30px;
+}
+.options-value button{
+padding:6px 10px;
+border-radius: 8px;
+border: 1px solid black;
+}
+.btn-create{
+padding: 10px;
+border-radius: 8px;
+background: #FFD771;
+font-size: 14px;
+font-weight: 600;
+margin-top: 30px;
+color: white;
+}
+.title-page h1 {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.container-button button {
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #CCCCCC;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.content--header {
+  background-color: #E4E4E4;
+  border-bottom: 1px solid black;
+  border-radius: 5px;
+}
+
+.m_c-headerAbove {
+  text-align: center;
+  height: 40px;
+}
+
+.container-table {
+  background: #fff;
+}
+
+.title-page h1 {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.container-button button {
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #CCCCCC;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.popupMatch {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1001; /* Đảm bảo form nằm trên tất cả các phần tử khác */
+  display: none; /* Mặc định ẩn */
+}
+
+form textarea {
+  padding: 30px;
+}
+
+.blurEffect {
+  filter: blur(5px);
+}
+
+.popupBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ 50% */
+  z-index: 1000; /* Đảm bảo phần nền mờ nằm dưới form nhưng trên các phần tử khác */
+  display: none; /* Mặc định ẩn */
+}
+.formcontainer{
+  display: flex;
+  gap: 30px;
+}
+.options-value button{
+padding:6px 10px;
+border-radius: 8px;
+border: 1px solid black;
+}
+.btn-create{
+padding: 10px;
+border-radius: 8px;
+background: #FFD771;
+font-size: 14px;
+font-weight: 600;
+margin-top: 30px;
+color: white;
+}
