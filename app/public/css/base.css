@@ -250,13 +250,14 @@ footer ul li {
 .m_c-headerUnder ul li{
   margin:4px;
   border-radius:10px;
-  padding:10px;
+  padding: 8px;
   background-color: #CCCCCC;
   cursor:pointer;
+  font-size: 14px;
 }
 .content--body{
-  height:462px;
-  overflow-y: auto;
+  height: 402px;
+  overflow-y: scroll;
   background-color: #FFD771;
 }
 .styled-table {
@@ -371,7 +372,7 @@ footer ul li {
 
 #table th,
 #table td {
-  padding: 35px;
+  padding: 25px;
 }
 
 #table th {
@@ -398,32 +399,6 @@ footer ul li {
 
 .blurEffect {
   filter: blur(5px);
-}
-
-.popupBackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  display: none;
-}
-
-.popupMatch {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  z-index: 1001;
-  /* Đảm bảo form nằm trên tất cả các phần tử khác */
-  display: none;
-  /* Mặc định ẩn */
 }
 
 .player-match {
@@ -528,7 +503,18 @@ color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   z-index: 1001; /* Đảm bảo form nằm trên tất cả các phần tử khác */
-  display: none; /* Mặc định ẩn */
+  display: none;
+}
+.popupMatchEdit {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1001; /* Đảm bảo form nằm trên tất cả các phần tử khác */
 }
 
 form textarea {

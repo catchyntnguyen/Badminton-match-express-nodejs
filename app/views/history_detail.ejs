@@ -18,40 +18,40 @@
                 </ul>
             </div>
         </div>
-        <div class="w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
-            <div class="content--body w-full content- container-table h-full">
-                <table id="table" class="table hover:table-fixed w-full ">
-                    <tr>
-                        <th class="text-center">Mã đội</th>
-                        <th>Hạn đội</th>
-                        <th>Giờ - Ngày</th>
-                        <th>Trạng thái</th>
-                        <th>Khác</th>
-                    </tr>
-                    <% let stv; %>
-                    <% for (let i of matches) { %>
-                        <%playerNow=JSON.parse(i.player)%>
-                        <% if (i.categoriesID==1) { stv=2; doi="Đơn" } else if (i.categoriesID==2) { stv=4;
-                            doi="Đôi" } %>
-                            
-                                <tr>
-                                    <td># <%= i.id %>
-                                    </td>
-                                    <td>
-                                        <%= doi %>
-                                    </td>
-                                    <td>
-                                        <%= i.dateStart %>
-                                    </td>
-                                    <td>
-                                        <%=playerNow.user.length%>   | <%= stv %>
-                                    </td>
-                                    <td><a href="/match/team/<%= i.id %>">Tham gia</a></td>
-                                </tr>
-                                <% } %>
-                </table>
+        <div class=" w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
+            <div class="w-full container-table">
+              <table id="table" class="table hover:table-fixed w-full">
+                  <tr>
+                      <th class="text-center">Mã đội</th>
+                      <th>Hạn đội</th>
+                      <th>Giờ - Ngày</th>
+                      <th>Trạng thái</th>
+                      <th>Khác</th>
+                  </tr>
+                  <% let stv; %>
+                  <% for (let i of matches) { %>
+                      <%playerNow=JSON.parse(i.player)%>
+                      <% if (i.categoriesID==1) { stv=2; doi="Đơn" } else if (i.categoriesID==2) { stv=4;
+                          doi="Đôi" } %>
+                          
+                              <tr>
+                                  <td># <%= i.id %>
+                                  </td>
+                                  <td>
+                                      <%= doi %>
+                                  </td>
+                                  <td>
+                                      <%= i.dateStart %>
+                                  </td>
+                                  <td>
+                                      <%=playerNow.user.length%>   | <%= stv %>
+                                  </td>
+                                  <td><a href="/match/team/<%= i.id %>">Xem chi tiết</a></td>
+                              </tr>
+                              <% } %>
+              </table>
             </div>
-        </div>
+          </div>
     </section>
     <div class="blanket_form">
         <% let style1, style2, style3; if (detail.categoriesID==1) { stv=2; doi="Đơn" ; style1="block" ; style2="none" ; } else
@@ -73,7 +73,7 @@
                                 <%=detail.dateStart%>
                             </span>
                         </h1>
-                        <div><a href="/"><i class="fa-solid fa-x"></i></a></div>
+                        <div><a href="/history"><i class="fa-solid fa-x"></i></a></div>
                     </div>
                     <form style="display: <%=style1%>;" action="/match/<%= detail.id %>/<%=iduser%>" method="POST">
                         <div class="">

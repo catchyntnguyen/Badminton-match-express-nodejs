@@ -2,18 +2,19 @@
     <section class="main__content p-3 relative">
         <div class="content--header">
             <div class="m_c-headerAbove">
-                <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+              <p id="currentDate"></p>
             </div>
             <div class="title-page">
                 <h1>TẠO TRẬN ĐẤU</h1>
             </div>
         </div>
         <div class="container-button">
-            <button id="createMatch">Tạo bản đấu<i class="fa-solid fa-gear"></i></button>
+          <button style="margin-right: 20px;" id=""><a href="/yourMatch">Trân đấu bạn đang tham gia</a> <i class="fa-solid fa-gear"></i></button>
+          <button id="createMatch">Tạo bản đấu<i class="fa-solid fa-gear"></i></button>
         </div>
         <div class="w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
-            <div class=" content--body w-full content- container-table h-full">
-                <table id="table" class="table hover:table-fixed w-full">
+            <div class="content--body w-full content- container-table h-full">
+                <table id="table" class="table hover:table-fixed w-full ">
                     <tr>
                         <th class="text-center">Mã đội</th>
                         <th>Hạn đội</th>
@@ -28,7 +29,7 @@
                             <td><%= item.categoriesID == 1 ? "Đơn" : "Đôi" %></td>
                             <td><%= item.dateStart %></td>
                             <td>Sắp diễn ra</td>
-                            <td><a href="" id="btnshow" class="linkdetail">Xem</a></td>
+                            <td><a href="/editMatch/<%=item.id%>" id="btnshow" class="linkdetail">Cập nhật</a></td>
                           </tr>
                         <% } %>
                       <% } else { %>
@@ -71,33 +72,6 @@
                 <button type="submit" class="btn-create w-full">Tạo Trận đấu</button>
               </form>
         </div>
-        <div class="popupMatch" id="formChangeMatch">
-            <form action="" method="post">
-                <div class="formcontainer">
-                    <div class="flex flex-col gap-5">
-                        <div class="flex gap-5 justify-between">
-                            <div class="flex flex-col gap-2">
-                                <label for="team1Score">Nhập tỉ số đội 1</label>
-                                <input type="text" id="team1Score" class="rounded border" style="padding: 8px;">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="team2Score">Nhập tỉ số đội 2</label>
-                                <input type="text" id="team2Score" class="rounded border" style="padding: 8px;">
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2" style="width: 200px;">
-                            <label for="matchDuration">Nhập số giờ</label>
-                            <input type="text" id="matchDuration" class="rounded border" style="padding: 8px;">
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="matchNotes">Ghi chú</label>
-                            <textarea id="matchNotes" class="border rounded"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn-create w-full">Sửa Trận đấu</button>
-            </form>
-        </div>
         </div>
         <script>
             const createMatch = document.getElementById('createMatch');
@@ -116,15 +90,6 @@
                 contentContainer.classList.add('blurEffect');
                 matchForm.style.display = 'block';
                 popupBackground.style.display = 'block';
-            });
-
-            showDetailLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    contentContainer.classList.add('blurEffect');
-                    formChangeMatch.style.display = 'block';
-                    popupBackground.style.display = 'block';
-                });
             });
 
             popupBackground.addEventListener('click', () => {

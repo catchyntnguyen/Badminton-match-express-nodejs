@@ -3,17 +3,20 @@
 <section class="main__content p-3">
         <div class="content--header">
           <div class="m_c-headerAbove">
-            <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+            <p id="currentDate"></p>
           </div>
           <div class="m_c-headerUnder">
             <div class="headerUnder-filter">Lọc theo</div>
             <ul>
-              <li>Đội chưa đủ người</li>
-              <li>Đội thi đấu đơn</li>
-              <li>Đội thi đấu đôi</li>
-              <li>Đội Hoàn thiện</li>
-              <li>Theo ngày</li>
-            </ul>
+              <li><a href="/history/filter_Match_Single">Đội thi đấu đơn</a></li>
+              <li><a href="/history/filter_Match_Couple">Đội thi đấu đôi</a></li>
+              <li>
+                    <form style="display: flex;" action="/filterHistoryDay" method="get">
+                          <input type="date" name="filterDate" id="filterDate">
+                          <button type="submit">Tìm</button>
+                    </form>
+              </li>
+        </ul>
           </div>
         </div>
         <div class=" w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
@@ -32,7 +35,7 @@
                         <td>#<%=item.id%></td>
                         <td><%=item.categoriesID == 1? "Đơn" : "Đôi"%></td>
                         <td><%=item.dateStart%></td>
-                        <td>Sắp diễn ra</td>
+                        <td><%=item.status == 1 ? "Sắp diễn ra" : item.status == 2 ? "Đang Diễn ra" : item.status == 3 ? "Hoàn Thành" : ""  %></td>
                         <td>
                           <div class="flex gap-2">
                             <span>1</span>
@@ -41,7 +44,7 @@
                           </div>
                         </td>
                         <td>
-                            <a href="/history/<%=item.id%>" class="linkdetail">Xem thêm chi tiết</a>
+                            <a href="/history/<%=item.id%>" data-id="<%=item.id%>" class="linkdetail cursor-pointer">Xem thêm chi tiết</a>
                         </td>
                       </tr>
                     <%}%>
@@ -55,7 +58,7 @@
       <div class="flex flex-col gap-5">
         <div class="flex">
           <div class="flex gap-2">
-            <span>#<%=detail%></span>
+            <span>#</span>
             <span>- Đơn</span>
             <span>- 9h30-11/5</span>
           </div>
@@ -88,33 +91,6 @@
     </div>
     <%- include('footer.ejs')%>
   </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const linkDetails = document.querySelectorAll('.linkdetail');
-  const matchForm = document.getElementById('matchForm');
-  const popupBackground = document.getElementById('popupBackground');
-  const closebtn = document.getElementById('closebtn');
 
-  linkDetails.forEach(link => {
-    link.addEventListener('click', (e) => {
-      matchForm.style.display = 'block';
-      popupBackground.style.display = 'block';
-      e.preventDefault();
-    });
-  });
-
-  popupBackground.addEventListener('click', () => {
-    matchForm.style.display = 'none';
-    popupBackground.style.display = 'none';
-  });
-
-  closebtn.addEventListener('click', () => {
-    matchForm.style.display = 'none';
-    popupBackground.style.display = 'none';
-  });
-});
-
-
-</script>
 
 </html>
