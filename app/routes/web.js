@@ -1,5 +1,5 @@
 const express = require('express');
-const { homePage,login, matchTeam,joinTeam, historyPage, createMatch, postcreateMatch, historyDetail, loginHandler, registerHandler, logOut } = require('../controller/homeController');
+const { homePage,login, matchTeam,joinTeam, historyPage, createMatch, infomation, postcreateMatch, historyDetail, loginHandler, registerHandler, logOut } = require('../controller/homeController');
 
 let router = express.Router();
 
