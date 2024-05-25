@@ -1,4 +1,7 @@
 <%- include('header.ejs')%>
+<% let user = JSON.parse(localStorage.getItem("user")); %>
+<% let iduser%>
+<% if(user && user[0]){ iduser = user[0]; } %>
     <section class="main__content">
         <div class="content--header">
             <div class="m_c-headerAbove">
@@ -74,7 +77,7 @@
                         </h1>
                         <div><a href="/"><i class="fa-solid fa-x"></i></a></div>
                     </div>
-                    <form style="display: <%=style1%>;" action="/match/<%= detail.id %>/1" method="POST">
+                    <form style="display: <%=style1%>;" action="/match/<%= detail.id %>/<%=iduser%>" method="POST">
                         <div class="">
                             <% let names=[]; phones=[]; %>  
                                 <% for (let i of users) { %>
