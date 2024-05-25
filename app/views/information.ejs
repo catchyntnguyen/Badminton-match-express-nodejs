@@ -1,0 +1,189 @@
+<%- include('header.ejs')%> 
+    <link rel="stylesheet" href="../css/info.css">
+    <section class="main__content p-3">
+        <div class="container__card">
+            <div class="card">
+                <div class="card__left">
+                    <div class="card__icon">
+                        <i class="fa-solid fa-person"></i>
+                    </div>
+                    <span class="card__left--title">BMI</span>
+                </div>
+                <div class="card__right">
+                    <span class="card__right--parameter">18.5</span>
+                    <span class="card__right--result">Trung Bình</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__left">
+                    <div class="card__icon">
+                        <i class="fa-solid fa-table"></i>
+                    </div>
+                    <span class="card__left--title">Join</span>
+                </div>
+                <div class="card__right">
+                    <span class="card__right--parameter">18</span>
+                    <span class="card__right--result">Trận đấu</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__left">
+                    <div class="card__icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <span class="card__left--title">Calories</span>
+                </div>
+                <div class="card__right">
+                    <span class="card__right--parameter">18.5</span>
+                    <span class="card__right--result">Đã tiêu hao</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__left">
+                    <div class="card__icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <span class="card__left--title">Hours</span>
+                </div>
+                <div class="card__right">
+                    <span class="card__right--parameter">18.5</span>
+                    <span class="card__right--result">Sô giờ</span>
+                </div>
+            </div>
+        </div>
+        <div class="containerYourInfo">
+            <div class="tableInfo">
+                <div class="tableHeader">
+                    <span class="tableHeader__title">Thông tin của bạn</span>
+                    <div class="tableHeader__Action" id="showHiddenPopup" style="cursor: pointer;">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Chỉnh sửa</span>
+                    </div>
+                </div>
+                <div class="tableContent">
+                    <div class="tableContent__row tableContent__row1">
+                        <span>CHIỀU CAO</span>
+                        <span>175cm</span>
+                    </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>CÂN NẶNG</span>
+                        <span>60KG</span>
+                    </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>BMI</span>
+                        <span>23.8</span>
+                    </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>TRẠNG THÁI</span>
+                        <span>BÌNH THƯỜNG</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tableInfo">
+                <div class="tableHeader">
+                    <span class="tableHeader__title">Lịch sử BMI</span>
+                    <!-- <div class="tableHeader__Action">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Chỉnh sửa</span>
+                    </div> -->
+                </div>
+                <div class="tableContent">
+                    <div class="tableContent--head">
+                        <div class="tableContent__row">
+                            <span>Ngày</span>
+                            <span>Chiều cao</span>
+                            <span>Cân nặng</span>
+                            <span>BMI</span>
+                        </div>
+                    </div>
+                    <div class="tableContent tableContent2">
+                        <div class="tableContent__row tableContent__row1">
+                            <span>24/05/2004</span>
+                            <span>175cm</span>
+                            <span>60kg</span>
+                            <span>23.3</span>
+                        </div>
+                        <div class="tableContent__row tableContent__row1">
+                            <span>24/05/2004</span>
+                            <span>175cm</span>
+                            <span>60kg</span>
+                            <span>23.3</span>
+                        </div>
+                        <div class="tableContent__row tableContent__row1">
+                            <span>24/05/2004</span>
+                            <span>175cm</span>
+                            <span>60kg</span>
+                            <span>23.3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- popup -->
+    <div class="popupUpdateInfoUser" id="showHiddenPopup">
+        <div class="popupContent">
+            <div class="popupContent-top">
+                <i class="fa-solid fa-xmark" id="showHiddenPopup"></i>
+            </div>
+            <form action="" class="formUpdate">
+                <div class="form__group">
+                    <label for="height" class="form__label">Chiều cao</label>
+                    <input type="number" name="height" placeholder="Exp: 175(cm)" class="form__input">
+                </div>
+                <div class="form__group">
+                    <label for="weight" class="form__label">Cân nặng</label>
+                    <input type="number" name="weight" placeholder="Exp: 60(kg)" class="form__input">
+                </div>
+                <div class="form__button">
+                    <button class="button__update">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </main>
+    <%- include('footer.ejs')%>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const linkDetails = document.querySelectorAll('.linkdetail');
+            const matchForm = document.getElementById('matchForm');
+            const popupBackground = document.getElementById('popupBackground');
+            const closebtn = document.getElementById('closebtn');
+
+            linkDetails.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    matchForm.style.display = 'block';
+                    popupBackground.style.display = 'block';
+                    e.preventDefault();
+                });
+            });
+
+            popupBackground.addEventListener('click', () => {
+                matchForm.style.display = 'none';
+                popupBackground.style.display = 'none';
+            });
+
+            closebtn.addEventListener('click', () => {
+                matchForm.style.display = 'none';
+                popupBackground.style.display = 'none';
+            });
+        });
+
+
+    </script>
+    <script>
+        const showHiddenPopups = document.querySelectorAll('#showHiddenPopup');
+        showHiddenPopups.forEach(button => {
+            button.onclick = (e) => {
+                e.preventDefault();
+                document.querySelector(".popupUpdateInfoUser").classList.toggle('popupUpdateInfoUserActive');
+            }
+        });
+        document.querySelector(".popupContent").onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    </script>
+</html>
