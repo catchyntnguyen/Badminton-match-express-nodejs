@@ -79,7 +79,7 @@ const matchTeam = async (req, res) => {
   let detail = getid(matches, id);
   let players = JSON.parse(detail.player);
   let users = players.user;
-  res.render("match_detail", { matches: matches, detail, users, userAll , currentUrl: '/matches' });
+  res.render("match_detail", { matches: matches, detail, users, userAll , currentUrl: '/' });
 };
 const joinTeam = async (req, res) => {
     try {
@@ -140,24 +140,19 @@ const joinTeam = async (req, res) => {
 
 const historyPage = async (req, res) => {
   try {
-    const userId = 1;
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userID = Number(user[0])
     const matches = await sequelize.query(
-      `SELECT * FROM matches_detail WHERE JSON_CONTAINS(player, '[${userId}]', '$.user') AND status = 3`,
+      `SELECT * FROM matches_detail WHERE JSON_CONTAINS(player, '[${userID}]', '$.user') AND status = 3`,
       {
         type: QueryTypes.SELECT
       }
-    );
-    const matchId = Number(req.params.id);
+    );    
     // const matchDetails = await sequelize.query('SELECT * FROM matches_detail WHERE id = ?', {
     //   replacements: [matchId],
     //   type: QueryTypes.SELECT
     // });
-    const matchesbyID = await sequelize.query("SELECT * FROM matches_detail", {
-      type: QueryTypes.SELECT,
-    });
-    console.log(matchId);
-    const detail = getid(matchesbyID, matchId );
-    res.render('history', { currentUrl: '/history', matches, detail});
+    res.render('history', { currentUrl: '/history', matches});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Đã xảy ra lỗi' });
@@ -166,12 +161,22 @@ const historyPage = async (req, res) => {
 
 const historyDetail = async (req, res) => {
   try {
-    const matchId = Number(req.params.id);
-    const matchDetails = await sequelize.query('SELECT * FROM matches_detail WHERE id = ?', {
-      replacements: [matchId],
-      type: QueryTypes.SELECT
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userID = Number(user[0])
+    const matches = await sequelize.query(
+      `SELECT * FROM matches_detail WHERE JSON_CONTAINS(player, '[${userID}]', '$.user') AND status = 3`,
+      {
+        type: QueryTypes.SELECT
+      }
+    );  
+    const userAll = await sequelize.query("SELECT * FROM users", {
+      type: QueryTypes.SELECT,
     });
-    res.render('history', { currentUrl: '/history', matchDetails });
+    let id = Number(req.params.id);
+    let detail = getid(matches, id);
+    let players = JSON.parse(detail.player);
+    let users = players.user;
+    res.render("history_detail", { matches: matches, detail, users, userAll , currentUrl: '/history' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Đã xảy ra lỗi' });
@@ -183,7 +188,6 @@ const createMatch = async (req, res) => {
     const showMatch = await sequelize.query('SELECT * FROM matches_detail', {
       type: QueryTypes.SELECT
     });
-    
     console.log(showMatch);
     res.render('createMatch', { currentUrl: '/createMatch', showMatch });
   } catch (error) {
@@ -193,8 +197,9 @@ const createMatch = async (req, res) => {
 const postcreateMatch = async (req, res) => {
   try {
     const { matchType, matchDate, matchTime, matchLocation } = req.body;
-    const user = 1
-    const playerArray = [user];
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userID = user[0]
+    const playerArray = [userID];
     const playerJSON = JSON.stringify({ user: playerArray });
 
     const query = `
@@ -212,6 +217,46 @@ const postcreateMatch = async (req, res) => {
     res.status(500).send('Error creating match');
   }
 };
+const editMatch = async (req, res) => {
+  try {
+    const matchId = Number(req.params.id);
+    const showMatch = await sequelize.query('SELECT * FROM matches_detail', {
+      type: QueryTypes.SELECT
+    });
+    const matchDetails = await sequelize.query('SELECT * FROM matches_detail WHERE id = ?', {
+      replacements: [matchId],
+      type: QueryTypes.SELECT
+    });
+
+    if (matchDetails.length > 0) {
+      res.render('edit_match', { currentUrl: '/createMatch', showMatch, matchDetails: matchDetails[0] });
+    } else {
+      res.status(404).send('Match not found');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Đã xảy ra lỗi khi tải trang chỉnh sửa trận đấu');
+  }
+}
+
+
+const PosteditMatch = async (req, res) => {
+  try {
+    const matchId = Number(req.params.id);
+    const { scoreT1, scoreT2, time, location } = req.body;
+    await sequelize.query(
+      'UPDATE matches_detail SET scoreT1 = ?, coreT2 = ?, time = ?, location = ? WHERE id = ?',
+      {
+        replacements: [scoreT1, scoreT2, time, location, matchId],
+        type: QueryTypes.UPDATE
+      }
+    );
+    res.redirect('/createMatch');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Đã xảy ra lỗi khi cập nhật trận đấu');
+  }
+};
 
 module.exports = {
   homePage,
@@ -224,5 +269,7 @@ module.exports = {
   postcreateMatch,
   historyDetail,
   loginHandler,
-  registerHandler
+  registerHandler,
+  editMatch,
+  PosteditMatch
 };

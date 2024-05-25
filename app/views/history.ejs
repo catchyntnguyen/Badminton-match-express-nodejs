@@ -32,7 +32,7 @@
                         <td>#<%=item.id%></td>
                         <td><%=item.categoriesID == 1? "Đơn" : "Đôi"%></td>
                         <td><%=item.dateStart%></td>
-                        <td>Sắp diễn ra</td>
+                        <td><%=item.status == 1 ? "Sắp diễn ra" : item.status == 2 ? "Đang Diễn ra" : item.status == 3 ? "Hoàn Thành" : ""  %></td>
                         <td>
                           <div class="flex gap-2">
                             <span>1</span>
@@ -41,7 +41,7 @@
                           </div>
                         </td>
                         <td>
-                            <a href="/history/<%=item.id%>" class="linkdetail">Xem thêm chi tiết</a>
+                            <a href="/history/<%=item.id%>" data-id="<%=item.id%>" class="linkdetail cursor-pointer">Xem thêm chi tiết</a>
                         </td>
                       </tr>
                     <%}%>
@@ -55,7 +55,7 @@
       <div class="flex flex-col gap-5">
         <div class="flex">
           <div class="flex gap-2">
-            <span>#<%=detail%></span>
+            <span>#</span>
             <span>- Đơn</span>
             <span>- 9h30-11/5</span>
           </div>
@@ -88,33 +88,6 @@
     </div>
     <%- include('footer.ejs')%>
   </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const linkDetails = document.querySelectorAll('.linkdetail');
-  const matchForm = document.getElementById('matchForm');
-  const popupBackground = document.getElementById('popupBackground');
-  const closebtn = document.getElementById('closebtn');
 
-  linkDetails.forEach(link => {
-    link.addEventListener('click', (e) => {
-      matchForm.style.display = 'block';
-      popupBackground.style.display = 'block';
-      e.preventDefault();
-    });
-  });
-
-  popupBackground.addEventListener('click', () => {
-    matchForm.style.display = 'none';
-    popupBackground.style.display = 'none';
-  });
-
-  closebtn.addEventListener('click', () => {
-    matchForm.style.display = 'none';
-    popupBackground.style.display = 'none';
-  });
-});
-
-
-</script>
 
 </html>
