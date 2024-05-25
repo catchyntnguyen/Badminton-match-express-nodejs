@@ -2,16 +2,21 @@
 <section class="main__content p-3">
       <div class="content--header">
             <div class="m_c-headerAbove">
-                  <p>Thứ <span>Hai</span> Ngày <span>20</span> Tháng <Span>5</Span> Năm <span>2024</span></p>
+                  <p id="currentDate"></p>
             </div>
             <div class="m_c-headerUnder">
                   <div class="headerUnder-filter">Lọc theo</div>
                   <ul>
-                        <li>Đội chưa đủ người</li>
-                        <li>Đội thi đấu đơn</li>
-                        <li>Đội thi đấu đôi</li>
-                        <li>Đội Hoàn thiện</li>
-                        <li>Theo ngày</li>
+                        <li><a href="/filterMissing">Đội chưa đủ người</a></li>
+                        <li><a href="/filter_Match_Single">Đội thi đấu đơn</a></li>
+                        <li><a href="/filter_Match_Couple">Đội thi đấu đôi</a></li>
+                        <li><a href="/filterDone">Đội Hoàn thiện</a></li>
+                        <li>
+                              <form style="display: flex;" action="/filterDay" method="get">
+                                    <input type="date" name="filterDate" id="filterDate">
+                                    <button type="submit">Tìm</button>
+                              </form>
+                        </li>
                   </ul>
             </div>
       </div>
