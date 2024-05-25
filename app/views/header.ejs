@@ -1,6 +1,9 @@
+<% let user = JSON.parse(localStorage.getItem("user")); %>
+<% let name = "Tên của bạn là gì ta"; %>
+<% if(user && user[1]){ name = user[1]; } %>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +33,7 @@
           </div>
           <div class="infoUser-content">
             <span class="infoUser-nameUser">
-              Nguyễn Quốc Thành
+              <%=name%>
             </span>
             <span class="infoUser-description">
               Thông tin bạn cần bên dưới.
@@ -57,7 +60,10 @@
               </a></li>
           </ul>
         </nav>
-        <button class="buttonLogOut">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </button>
+        <a href="/logOut">
+          <button  class="buttonLogOut">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </a>
+        
       </section>

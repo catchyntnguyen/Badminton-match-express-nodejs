@@ -1,7 +1,6 @@
 //khai báo modules
 const sequelize = require("../configs/connectDB");
 const { Sequelize, QueryTypes } = require("sequelize");
-const { Matches } = require("../models/modelsDB");
 //hàm tìm id sẵn
 const getid = (data, id) => {
   return data.find((i) => i.id === id);
@@ -138,7 +137,7 @@ const createMatch = async (req, res) => {
 const postcreateMatch = async (req, res) => {
   try {
     const { matchType, matchDate, matchTime, matchLocation } = req.body;
-    const user = 1;
+    const user = 1
     const playerArray = [user];
     const playerJSON = JSON.stringify({ user: playerArray });
 
