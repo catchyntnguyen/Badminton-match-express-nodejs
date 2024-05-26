@@ -553,3 +553,8 @@ font-weight: 600;
 margin-top: 30px;
 color: white;
 }
+
+.button-active{
+  background: #FFD771;
+  color: black;
+}

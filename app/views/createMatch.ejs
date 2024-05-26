@@ -62,8 +62,8 @@
                     <div class="flex flex-col gap-2">
                       <label for="matchType">Chọn hạn đội</label>
                       <div class="options-value flex gap-2">
-                        <button type="button" value="1" class="text-base font-medium" onclick="setMatchType(1)">Đơn</button>
-                        <button type="button" value="2" class="text-base font-medium" onclick="setMatchType(2)">Đôi</button>
+                        <button type="button" value="1" class="text-base font-medium" onclick="setMatchType(1, this)">Đơn</button>
+                        <button type="button" value="2" class="text-base font-medium" onclick="setMatchType(2, this)">Đôi</button>
                       </div>
                       <input type="hidden" id="matchType" name="matchType" value="">
                     </div>
@@ -82,9 +82,14 @@
             const showDetailLinks = document.querySelectorAll('.linkdetail');
             const formChangeMatch = document.getElementById('formChangeMatch');
 
-            function setMatchType(type) {
-                console.log("click" + type);
+            function setMatchType(type, element) {
+            console.log("click" + type);
             document.getElementById('matchType').value = type;
+            var buttons = document.querySelectorAll('.options-value button');
+            buttons.forEach(function(button) {
+            button.classList.remove('button-active');
+            });
+            element.classList.add('button-active');
             }
             createMatch.addEventListener('click', () => {
                 contentContainer.classList.add('blurEffect');
