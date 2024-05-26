@@ -38,9 +38,9 @@
                         <td><%=item.status == 1 ? "Sắp diễn ra" : item.status == 2 ? "Đang Diễn ra" : item.status == 3 ? "Hoàn Thành" : ""  %></td>
                         <td>
                           <div class="flex gap-2">
-                            <span>1</span>
+                            <span><%=item.scoreT1%></span>
                             <span>|</span>
-                            <span>2</span>
+                            <span><%=item.coreT2%></span>
                           </div>
                         </td>
                         <td>
@@ -89,8 +89,8 @@
         </div>
       </div>
     </div>
-    <%- include('footer.ejs')%>
   </div>
+    <%- include('footer.ejs')%>
 
 
 </html>
