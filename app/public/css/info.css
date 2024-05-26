@@ -2,12 +2,14 @@ main {
     height: 76vh !important;
     overflow-x: hidden;
 }
+
 .main__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 12px;
 }
+
 .container__card {
     display: flex;
     align-items: center;
@@ -22,22 +24,25 @@ main {
     height: 150px;
     border-radius: 10px;
     padding: 10px 60px;
-    background-color: #FFC73A;    
+    background-color: #FFC73A;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 24px;
 }
+
 .card:nth-child(1),
 .card:nth-child(4) {
     background-color: #C0AB76;
 }
+
 .card__left {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3px;
 }
+
 .card__icon {
     width: 50px;
     height: 50px;
@@ -47,9 +52,11 @@ main {
     justify-content: center;
     align-items: center;
 }
+
 .card__icon i {
     font-size: 25px;
 }
+
 .card__left--title {
     font-size: 20px;
     font-weight: 600;
@@ -73,6 +80,7 @@ main {
     font-weight: 600;
     color: white;
 }
+
 .containerYourInfo {
     width: 100%;
     height: 250px;
@@ -127,11 +135,13 @@ main {
     justify-content: space-between;
     padding: 0 12px;
 }
+
 .tableContent__row span {
     font-weight: 700;
     width: 50%;
     text-align: center;
 }
+
 .tableContent--head {
     width: 363px;
     height: 39.94px;
@@ -139,17 +149,21 @@ main {
     position: fixed;
     backdrop-filter: blur(15px);
 }
+
 .tableContent--head .tableContent__row {
     height: 39.94px;
 }
+
 .tableContent2 {
     height: 120px;
     margin-top: 39.94px;
     overflow-y: scroll;
 }
+
 .tableContent2 .tableContent__row {
     height: 50%;
 }
+
 .tableContent2::-webkit-scrollbar {
     width: 5px;
 }
@@ -183,13 +197,16 @@ main {
     visibility: hidden;
     transition: 0.3s ease-in-out;
 }
+
 .popupUpdateInfoUserActive {
     opacity: 1 !important;
     visibility: visible !important;
 }
+
 .popupUpdateInfoUserActive .popupContent {
     transform: translateY(0);
 }
+
 .popupContent {
     width: 30%;
     height: auto;
@@ -198,7 +215,7 @@ main {
     flex-direction: column;
     gap: 12px;
     padding: 12px;
-    background-color: rgba(230, 224, 224, 0.67);
+    background-color: rgba(230, 224, 224, 0.918);
     border: 1px solid black;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     transform: translateY(-200%);
@@ -211,10 +228,12 @@ main {
     display: flex;
     justify-content: flex-end;
 }
+
 .popupContent-top i {
     cursor: pointer;
     font-size: 20px;
 }
+
 .formUpdate {
     width: 100%;
     height: 100%;
@@ -242,12 +261,23 @@ main {
     border-radius: 12px;
 }
 
+.form__message {
+    color: red;
+    font-size: 14px;
+}
+
 .form__button {
     width: 100%;
     height: 56px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.form__button span {
+    color: red;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .button__update {
@@ -255,6 +285,7 @@ main {
     background-color: #FFC73A;
     border-radius: 12px;
 }
+
 ::-webkit-inner-spin-button {
     display: none;
 }

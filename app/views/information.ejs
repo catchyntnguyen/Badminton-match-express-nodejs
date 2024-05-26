@@ -1,4 +1,4 @@
-<%- include('header.ejs')%> 
+<%- include('header.ejs')%>
     <link rel="stylesheet" href="../css/info.css">
     <section class="main__content p-3">
         <div class="container__card">
@@ -10,8 +10,12 @@
                     <span class="card__left--title">BMI</span>
                 </div>
                 <div class="card__right">
-                    <span class="card__right--parameter">18.5</span>
-                    <span class="card__right--result">Trung Bình</span>
+                    <span class="card__right--parameter">
+                        <%= bmi.bmiResult %>
+                    </span>
+                    <span class="card__right--result">
+                        <%= bmi.bmiResultText %>
+                    </span>
                 </div>
             </div>
             <div class="card">
@@ -34,7 +38,9 @@
                     <span class="card__left--title">Calories</span>
                 </div>
                 <div class="card__right">
-                    <span class="card__right--parameter">18.5</span>
+                    <span class="card__right--parameter">
+                        <%= infoUser.calo %>
+                    </span>
                     <span class="card__right--result">Đã tiêu hao</span>
                 </div>
             </div>
@@ -63,58 +69,60 @@
                 <div class="tableContent">
                     <div class="tableContent__row tableContent__row1">
                         <span>CHIỀU CAO</span>
-                        <span>175cm</span>
+                        <span>
+                            <%=infoUser.height%>cm
+                        </span>
                     </div>
                     <div class="tableContent__row tableContent__row1">
                         <span>CÂN NẶNG</span>
-                        <span>60KG</span>
+                        <span>
+                            <%=infoUser.weight%>KG
+                        </span>
                     </div>
                     <div class="tableContent__row tableContent__row1">
                         <span>BMI</span>
-                        <span>23.8</span>
+                        <span><%= bmi.bmiResult %></span>
                     </div>
                     <div class="tableContent__row tableContent__row1">
                         <span>TRẠNG THÁI</span>
-                        <span>BÌNH THƯỜNG</span>
+                        <span>
+                            <%= bmi.bmiResultText.toUpperCase() %>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="tableInfo">
                 <div class="tableHeader">
                     <span class="tableHeader__title">Lịch sử BMI</span>
-                    <!-- <div class="tableHeader__Action">
+                    <div class="tableHeader__Action" id="showHiddenPopup2" style="cursor: pointer;">
                         <i class="fa-solid fa-gear"></i>
                         <span>Chỉnh sửa</span>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="tableContent">
-                    <div class="tableContent--head">
-                        <div class="tableContent__row">
-                            <span>Ngày</span>
-                            <span>Chiều cao</span>
-                            <span>Cân nặng</span>
-                            <span>BMI</span>
-                        </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>Điện thoại</span>
+                        <span>
+                            0<%= infoUser.phoneNumber || 'Chưa có số điện thoại' %>
+                        </span>
                     </div>
-                    <div class="tableContent tableContent2">
-                        <div class="tableContent__row tableContent__row1">
-                            <span>24/05/2004</span>
-                            <span>175cm</span>
-                            <span>60kg</span>
-                            <span>23.3</span>
-                        </div>
-                        <div class="tableContent__row tableContent__row1">
-                            <span>24/05/2004</span>
-                            <span>175cm</span>
-                            <span>60kg</span>
-                            <span>23.3</span>
-                        </div>
-                        <div class="tableContent__row tableContent__row1">
-                            <span>24/05/2004</span>
-                            <span>175cm</span>
-                            <span>60kg</span>
-                            <span>23.3</span>
-                        </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>Tên</span>
+                        <span>
+                            <%=infoUser.name%>
+                        </span>
+                    </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>Mật khẩu</span>
+                        <span>
+                            <%=infoUser.password%>
+                        </span>
+                    </div>
+                    <div class="tableContent__row tableContent__row1">
+                        <span>Email</span>
+                        <span>
+                            <%=infoUser.email%>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -122,68 +130,233 @@
     </section>
 
     <!-- popup -->
-    <div class="popupUpdateInfoUser" id="showHiddenPopup">
+    <div class="popupUpdateInfoUser popup1" id="showHiddenPopup">
         <div class="popupContent">
             <div class="popupContent-top">
                 <i class="fa-solid fa-xmark" id="showHiddenPopup"></i>
             </div>
-            <form action="" class="formUpdate">
+            <form action="/updateInfo1" method="post" class="formUpdate" id="formRight">
                 <div class="form__group">
                     <label for="height" class="form__label">Chiều cao</label>
-                    <input type="number" name="height" placeholder="Exp: 175(cm)" class="form__input">
+                    <input type="number" id="height" value="<%= infoUser.height %>" name="height"
+                        placeholder="Exp: 175(cm)" class="form__input">
+                    <span class="form__message"></span>
                 </div>
                 <div class="form__group">
                     <label for="weight" class="form__label">Cân nặng</label>
-                    <input type="number" name="weight" placeholder="Exp: 60(kg)" class="form__input">
+                    <input type="number" id="weight" value="<%= infoUser.weight %>" name="weight"
+                        placeholder="Exp: 60(kg)" class="form__input">
+                    <span class="form__message"></span>
                 </div>
                 <div class="form__button">
-                    <button class="button__update">Cập nhật</button>
+                    <span class="message__form"></span>
+                    <button type="submit" class="button__update">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- popup -->
+    <div class="popupUpdateInfoUser popup2" id=" showHiddenPopup2">
+        <div class="popupContent">
+            <div class="popupContent-top">
+                <i class="fa-solid fa-xmark" id="showHiddenPopup2"></i>
+            </div>
+            <form action="/updateInfo2" method="post" class="formUpdate" id="formLeft">
+                <div class="form__group">
+                    <label for="phoneNumber" class="form__label">Số điện thoại</label>
+                    <input type="number" id="phone" name="phoneNumber" placeholder="Exp: 03524314xx" class="form__input"
+                        value="0<%= infoUser.phoneNumber %>">
+                    <span class="form__message"></span>
+                </div>
+                <div class="form__group">
+                    <label for="username" class="form__label">Tên của bạn</label>
+                    <input type="text" id="name" value="<%= infoUser.name %>" name="username" placeholder="Exp: User"
+                        class="form__input">
+                    <span class="form__message"></span>
+                </div>
+                <div class="form__group">
+                    <label for="password" class="form__label">Mật khẩu</label>
+                    <input type="text" id="password" value="<%= infoUser.password %>" name="password"
+                        placeholder="Exp: passwordOfUser" class="form__input">
+                    <span class="form__message"></span>
+                </div>
+                <div class="form__button">
+                    <span class="message__form2 message__form"></span>
+                    <button type="submit" class="button__update button__update2">Cập nhật</button>
                 </div>
             </form>
         </div>
     </div>
     </main>
     <%- include('footer.ejs')%>
-</div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const linkDetails = document.querySelectorAll('.linkdetail');
-            const matchForm = document.getElementById('matchForm');
-            const popupBackground = document.getElementById('popupBackground');
-            const closebtn = document.getElementById('closebtn');
+        </div>
+        <!-- check form update  1 -->
+        <script>
+            document.querySelector('.button__update').onclick = async (event) => {
+                event.preventDefault();
+                const height = document.getElementById('height');
+                const weight = document.getElementById('weight');
+                height.oninput = (event) => {
+                    height.parentElement.querySelector("span").textContent = "";
+                    height.style.borderColor = "black";
+                }
+                weight.oninput = (event) => {
+                    weight.parentElement.querySelector("span").textContent = "";
+                    weight.style.borderColor = "black";
+                }
+                if (height.value < 50 || height.value > 250) {
+                    height.parentElement.querySelector("span").textContent = "Chiều cao không hợp lệ. Vui lòng nhập lại.";
+                    height.focus();
+                    height.style.borderColor = "red";
+                    return;
+                }
+                if (weight.value < 20 || weight.value > 500) {
+                    weight.parentElement.querySelector("span").textContent = "Cân nặng không hợp lệ. Vui lòng nhập lại.";
+                    weight.focus();
+                    weight.style.borderColor = "red";
+                    return;
+                }
+                else {
+                    const form1 = document.querySelector('#formRight');
+                    const formData = new FormData(form1);
+                    const heightData = formData.get('height');
+                    const weightData = formData.get('weight');
+                    const response = await fetch('/updateInfo1', {
+                        method: 'POST',
+                        body: JSON.stringify({ heightData, weightData }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const res = await response.json();
+                    if (response.status === 404) {
+                        document.querySelector(".message__form").innerText = res.message;
+                    } else if (response.status === 201) {
+                        document.querySelector(".message__form").innerText = res.message;
+                        document.querySelector(".message__form").style.color = "green";
+                        setTimeout(() => {
+                            window.location.href = "/info";
+                        }, 1000);
+                    }
+                }
+            };
+        </script>
+        <!-- check form update end -->
+        <!-- update 2 -->
+        <script>
+            document.querySelector('.button__update2').onclick = async (event) => {
+                event.preventDefault();
+                const phone = document.getElementById('phone');
+                const name = document.getElementById('name');
+                const password = document.getElementById('password');
+                phone.oninput = (event) => {
+                    phone.parentElement.querySelector("span").textContent = "";
+                    phone.style.borderColor = "black";
+                }
+                name.oninput = (event) => {
+                    name.parentElement.querySelector("span").textContent = "";
+                    name.style.borderColor = "black";
+                }
+                password.oninput = (event) => {
+                    password.parentElement.querySelector("span").textContent = "";
+                    password.style.borderColor = "black";
+                }
+                const regex = /^(0[2|3|5|6|7|8|9])+([0-9]{8})$/;
+                if (phone.value == "" || !regex.test(phone.value)) {
+                    phone.parentElement.querySelector("span").textContent = "Số điện thoại không hợp lệ. Vui lòng nhập lại.";
+                    phone.focus();
+                    phone.style.borderColor = "red";
+                    return;
+                }
+                if (name.value == "") {
+                    name.parentElement.querySelector("span").textContent = "Tên không hợp lệ. Vui lòng nhập lại.";
+                    name.focus();
+                    name.style.borderColor = "red";
+                    return;
+                }
+                if (password.value == "") {
+                    password.parentElement.querySelector("span").textContent = "Mật khẩu ít nhất 1 kí tự. Vui lòng nhập lại.";
+                    password.focus();
+                    password.style.borderColor = "red";
+                    return;
+                }
+                else {
+                    const form2 = document.querySelector('#formLeft');
+                    const formData = new FormData(form2);
+                    const phoneData = formData.get('phoneNumber');
+                    const nameData = formData.get('username');
+                    const passwordData = formData.get('password');
+                    const response = await fetch('/updateInfo2', {
+                        method: 'POST',
+                        body: JSON.stringify({ phoneData, nameData, passwordData }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const res = await response.json();
+                    if (response.status === 404) {
+                        document.querySelector(".message__form2").innerText = res.message;
+                    } else if (response.status === 201) {
+                        document.querySelector(".message__form2").innerText = res.message;
+                        document.querySelector(".message__form2").style.color = "green";
+                        setTimeout(() => {
+                            window.location.href = "/info";
+                        }, 1000);
+                    }
+                }
+            };
+        </script>
+        <!-- update 2 end -->
 
-            linkDetails.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    matchForm.style.display = 'block';
-                    popupBackground.style.display = 'block';
-                    e.preventDefault();
+        <!--  -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const linkDetails = document.querySelectorAll('.linkdetail');
+                const matchForm = document.getElementById('matchForm');
+                const popupBackground = document.getElementById('popupBackground');
+                const closebtn = document.getElementById('closebtn');
+
+                linkDetails.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        matchForm.style.display = 'block';
+                        popupBackground.style.display = 'block';
+                        e.preventDefault();
+                    });
+                });
+
+                popupBackground.addEventListener('click', () => {
+                    matchForm.style.display = 'none';
+                    popupBackground.style.display = 'none';
+                });
+
+                closebtn.addEventListener('click', () => {
+                    matchForm.style.display = 'none';
+                    popupBackground.style.display = 'none';
                 });
             });
 
-            popupBackground.addEventListener('click', () => {
-                matchForm.style.display = 'none';
-                popupBackground.style.display = 'none';
+
+        </script>
+        <!-- togge form -->
+        <script>
+            const showHiddenPopups = document.querySelectorAll('#showHiddenPopup');
+            showHiddenPopups.forEach(button => {
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    document.querySelector(".popup1").classList.toggle('popupUpdateInfoUserActive');
+                }
             });
-
-            closebtn.addEventListener('click', () => {
-                matchForm.style.display = 'none';
-                popupBackground.style.display = 'none';
+            const showHiddenPopups2 = document.querySelectorAll('#showHiddenPopup2');
+            showHiddenPopups2.forEach(button => {
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    document.querySelector(".popup2").classList.toggle('popupUpdateInfoUserActive');
+                }
             });
-        });
-
-
-    </script>
-    <script>
-        const showHiddenPopups = document.querySelectorAll('#showHiddenPopup');
-        showHiddenPopups.forEach(button => {
-            button.onclick = (e) => {
+            document.querySelector(".popupContent").onclick = (e) => {
                 e.preventDefault();
-                document.querySelector(".popupUpdateInfoUser").classList.toggle('popupUpdateInfoUserActive');
+                e.stopPropagation();
             }
-        });
-        document.querySelector(".popupContent").onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    </script>
-</html>
+        </script>
+
+        </html>
