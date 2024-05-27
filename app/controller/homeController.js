@@ -158,7 +158,7 @@ const login = async (req, res) => {
 
 const logOut = (req, res) => {
   localStorage.clear();
-  res.redirect("/?error=" + encodeURIComponent(error));
+  res.redirect("/login");
 };
 const loginHandler = async (req, res) => {
   const userAll = await sequelize.query("SELECT * FROM users", {
@@ -401,6 +401,8 @@ const postcreateMatch = async (req, res) => {
     const playerArray = [userID];
     const playerJSON = JSON.stringify({ user: playerArray });
 
+    
+
     const query = `
       INSERT INTO matches_detail (categoriesID, scoreT1, status, dateStart, dateEnd, player, coreT2, time, location)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -474,7 +476,27 @@ const editMatch = async (req, res) => {
 const PosteditMatch = async (req, res) => {
   try {
     const matchId = Number(req.params.id);
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userID = user[0];
+    const userDetail = await sequelize.query(`SELECT * FROM users WHERE id = ${userID} `, {
+      type: QueryTypes.SELECT,
+    });
+    let calo = userDetail[0].calo;
     const { scoreT1, scoreT2, time, location } = req.body;
+    if( userDetail.weight <= 72){
+      calo += 143 * time
+    }else if(73 <= userDetail.weight <= 90){
+      calo += 164 * time
+    }else if(91 <= userDetail.weight ){
+      calo += 220 * time
+    }
+    await sequelize.query(
+      "UPDATE users SET calo = ? WHERE id = ?",
+      {
+        replacements: [calo, userID],
+        type: QueryTypes.UPDATE,
+      }
+    );
     await sequelize.query(
       "UPDATE matches_detail SET scoreT1 = ?, coreT2 = ?, time = ?, location = ? WHERE id = ?",
       {
@@ -493,6 +515,24 @@ const infomation = async (req, res) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
     const userID = Number(user[0]);
+
+    let yourMatch = [];
+    let hours;
+    const matches = await sequelize.query("SELECT * FROM matches_detail WHERE status = 3", {
+      type: QueryTypes.SELECT,
+    });
+
+
+      matches.forEach((match) => {
+        const playerData = JSON.parse(match.player);
+        const userExists = playerData.user.includes(userID);
+        // console.log(`Match ID: ${match.id}, User exists: ${userExists}`);
+        if (userExists) {
+          yourMatch.push(match);
+          hours = yourMatch.reduce((hours, match) => hours + Number(match.time), 0);
+        }
+      });
+
     const [infoUser] = await sequelize.query(
       `SELECT * FROM users where id = ${userID}`,
       {
@@ -506,13 +546,15 @@ const infomation = async (req, res) => {
       bmiResult < 18.5
         ? "Thiếu cân"
         : bmiResult >= 25
-        ? "Thừa cân"
-        : "Trung bình";
+          ? "Thừa cân"
+          : "Trung bình";
     // Trả về kết quả
     res.render("information", {
       currentUrl: "/info",
       bmi: { bmiResult, bmiResultText },
       infoUser: infoUser,
+      yourMatch: yourMatch,
+      hours: hours
     });
   } catch (error) {
     console.log(error);
