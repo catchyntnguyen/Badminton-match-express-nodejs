@@ -245,6 +245,7 @@ const joinTeam = async (req, res) => {
     }
 
     let teamDetail = getid(matches, team);
+
     if (!teamDetail) {
       return res.status(404).send("Match team not found");
     }
@@ -257,6 +258,15 @@ const joinTeam = async (req, res) => {
     if (!check) {
       playerNew.user.push(id);
       teamDetail.player = JSON.stringify(playerNew);
+      const playerData = JSON.parse(teamDetail.player);
+      const userData = playerData.user;
+      let numberTeam;
+      if (teamDetail.categoriesID = 1) {
+        numberTeam = 2;
+      } else if (teamDetail.categoriesID = 2) {
+        numberTeam = 4
+      }
+      // console.log(numberTeam, userData.length);
       await sequelize.query(
         "UPDATE matches_detail SET player = :player WHERE id = :teamId",
         {
@@ -264,14 +274,16 @@ const joinTeam = async (req, res) => {
           type: QueryTypes.UPDATE,
         }
       );
+      if (userData.length == numberTeam) {
+        await sequelize.query(
+          "UPDATE matches_detail SET status = :status WHERE id = :teamId",
+          {
+            replacements: { status: "2", teamId: team },
+            type: QueryTypes.UPDATE,
+          }
+        );
+      }
 
-      await sequelize.query(
-        "UPDATE matches_detail SET status = :status WHERE id = :teamId",
-        {
-          replacements: { status: "2", teamId: team },
-          type: QueryTypes.UPDATE,
-        }
-      );
 
       return res.redirect("/");
     } else {
@@ -401,7 +413,7 @@ const postcreateMatch = async (req, res) => {
     const playerArray = [userID];
     const playerJSON = JSON.stringify({ user: playerArray });
 
-    
+
 
     const query = `
       INSERT INTO matches_detail (categoriesID, scoreT1, status, dateStart, dateEnd, player, coreT2, time, location)
@@ -483,11 +495,11 @@ const PosteditMatch = async (req, res) => {
     });
     let calo = userDetail[0].calo;
     const { scoreT1, scoreT2, time, location } = req.body;
-    if( userDetail.weight <= 72){
+    if (userDetail.weight <= 72) {
       calo += 143 * time
-    }else if(73 <= userDetail.weight <= 90){
+    } else if (73 <= userDetail.weight <= 90) {
       calo += 164 * time
-    }else if(91 <= userDetail.weight ){
+    } else if (91 <= userDetail.weight) {
       calo += 220 * time
     }
     await sequelize.query(
@@ -523,15 +535,15 @@ const infomation = async (req, res) => {
     });
 
 
-      matches.forEach((match) => {
-        const playerData = JSON.parse(match.player);
-        const userExists = playerData.user.includes(userID);
-        // console.log(`Match ID: ${match.id}, User exists: ${userExists}`);
-        if (userExists) {
-          yourMatch.push(match);
-          hours = yourMatch.reduce((hours, match) => hours + Number(match.time), 0);
-        }
-      });
+    matches.forEach((match) => {
+      const playerData = JSON.parse(match.player);
+      const userExists = playerData.user.includes(userID);
+      // console.log(`Match ID: ${match.id}, User exists: ${userExists}`);
+      if (userExists) {
+        yourMatch.push(match);
+        hours = yourMatch.reduce((hours, match) => hours + Number(match.time), 0);
+      }
+    });
 
     const [infoUser] = await sequelize.query(
       `SELECT * FROM users where id = ${userID}`,
