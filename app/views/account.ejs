@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="Webstie Icon" type="png" href="../images/Logo_Ananas_Header.svg">
-    <title>Ananas - DiscoverYOU</title>
+    <title>BatmintonWeb</title>
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../css/account.css">
     <!-- <link rel="stylesheet" href="../styles/toastMessage.css"> -->
@@ -27,6 +26,7 @@
                             <input class="form__input email--input" name="emailLogin" type="email" placeholder=" ">
                             <label class="label__place" for="">Email</label>
                             <span class="form__message form__message-email"></span>
+                            <span style="color: red;"><%= error ? error : '' %></span>
                         </div>
                         <div class="form__group">
                             <input class="form__input password--input" name="passwordLogin" type="password" placeholder=" ">
@@ -36,6 +36,7 @@
                                 <ion-icon class="form__icon eye-icon" name="lock-closed-outline"></ion-icon>
                                 <ion-icon class="form__icon eye-icon eye-active" name="lock-open-outline"></ion-icon>
                             </div>
+                            <span style="color: red;"><%= error2 ? error2 : '' %></span>
                         </div>
                         <div class="forget">
                             <label class="forget__label" for=""><input type="checkbox">Nhớ mật khẩu</label>

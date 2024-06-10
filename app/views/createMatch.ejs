@@ -1,105 +1,119 @@
 <%- include('header.ejs')%>
-    <section class="main__content p-3 relative">
-        <div class="content--header">
-            <div class="m_c-headerAbove">
-              <p id="currentDate"></p>
+  <section class="main__content p-3 relative">
+    <div class="content--header">
+      <div class="m_c-headerAbove">
+        <p id="currentDate"></p>
+      </div>
+      <div class="title-page">
+        <h1>TẠO TRẬN ĐẤU</h1>
+      </div>
+    </div>
+    <div class="container-button">
+      <button style="margin-right: 20px;" id=""><a href="/yourMatch">Trân đấu bạn đang tham gia</a> <i
+          class="fa-solid fa-gear"></i></button>
+      <button id="createMatch">Tạo bản đấu<i class="fa-solid fa-gear"></i></button>
+    </div>
+    <div class="w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
+      <div class="content--body w-full content- container-table h-full">
+        <table id="table" class="table hover:table-fixed w-full ">
+          <tr>
+            <th class="text-center">Mã đội</th>
+            <th>Hạn đội</th>
+            <th>Giờ - Ngày</th>
+            <th>Trạng thái</th>
+            <th>Khác</th>
+          </tr>
+          <% if (showMatch && showMatch.length> 0) { %>
+            <% for (let item of showMatch) { %>
+              <tr class="td-table">
+                <td>#<%= item.id %>
+                </td>
+                <td>
+                  <%= item.categoriesID==1 ? "Đơn" : "Đôi" %>
+                </td>
+                <td>
+                  <%= item.dateStart %>
+                </td>
+                <td>
+                  <%= item.status==2 ? "Sắp diễn ra" : item.status==3 ? "Hoàn thành" : "Đang chờ" %>
+                </td>
+                <!-- <td><a href="/editMatch/<%=item.id%>" id="btnshow" class="linkdetail">Cập nhật</a></td> -->
+                <td><a href="<%= item.status == 2 ? `/editMatch/${item.id}` : (item.status == 3 ? `/match/team/${item.id}` : '') %>"
+                    id="btnshow" class="linkdetail">
+                    <%= item.status==2 ? "Cập nhật" : item.status==3 ? "Xem chi tiết" : "Đang chờ" %>
+                  </a></td>
+              </tr>
+              <% } %>
+                <% } else { %>
+                  <tr class="td-table">
+                    <td colspan="5">Không có trận đấu nào.</td>
+                  </tr>
+                  <% } %>
+        </table>
+      </div>
+    </div>
+  </section>
+  <%- include('footer.ejs')%>
+    <div class="popupBackground" id="popupBackground"></div>
+    <div class="popupMatch" id="matchForm">
+      <form action="/createMatch" method="post">
+        <div class="formcontainer" style="width: 400px;">
+          <div class="flex flex-col gap-3 w-full">
+            <div class="flex flex-col gap-2">
+              <label for="matchDate">Chọn ngày thi đấu</label>
+              <input type="date" id="matchDate" name="matchDate" class="rounded border" style="padding: 8px;">
             </div>
-            <div class="title-page">
-                <h1>TẠO TRẬN ĐẤU</h1>
+            <div class="flex flex-col gap-2">
+              <label for="matchTime">Chọn Thời gian</label>
+              <input type="time" id="matchTime" name="matchTime" class="rounded border" style="padding: 8px;">
             </div>
-        </div>
-        <div class="container-button">
-          <button style="margin-right: 20px;" id=""><a href="/yourMatch">Trân đấu bạn đang tham gia</a> <i class="fa-solid fa-gear"></i></button>
-          <button id="createMatch">Tạo bản đấu<i class="fa-solid fa-gear"></i></button>
-        </div>
-        <div class="w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
-            <div class="content--body w-full content- container-table h-full">
-                <table id="table" class="table hover:table-fixed w-full ">
-                    <tr>
-                        <th class="text-center">Mã đội</th>
-                        <th>Hạn đội</th>
-                        <th>Giờ - Ngày</th>
-                        <th>Trạng thái</th>
-                        <th>Khác</th>
-                    </tr>
-                    <% if (showMatch && showMatch.length > 0) { %>
-                        <% for (let item of showMatch) { %>
-                          <tr class="td-table">
-                            <td>#<%= item.id %></td>
-                            <td><%= item.categoriesID == 1 ? "Đơn" : "Đôi" %></td>
-                            <td><%= item.dateStart %></td>
-                            <td>Sắp diễn ra</td>
-                            <td><a href="/editMatch/<%=item.id%>" id="btnshow" class="linkdetail">Cập nhật</a></td>
-                          </tr>
-                        <% } %>
-                      <% } else { %>
-                        <tr class="td-table">
-                          <td colspan="5">Không có trận đấu nào.</td>
-                        </tr>
-                      <% } %>
-                </table>
+            <div class="flex flex-col gap-2">
+              <label for="matchLocation">Vị trí</label>
+              <input type="text" id="matchLocation" name="matchLocation" class="rounded border" style="padding: 8px;">
             </div>
+            <div class="flex flex-col gap-2">
+              <label for="matchType">Chọn hạn đội</label>
+              <div class="options-value flex gap-2">
+                <button type="button" value="1" class="text-base font-medium"
+                  onclick="setMatchType(1, this)">Đơn</button>
+                <button type="button" value="2" class="text-base font-medium"
+                  onclick="setMatchType(2, this)">Đôi</button>
+              </div>
+              <input type="hidden" id="matchType" name="matchType" value="">
+            </div>
+          </div>
         </div>
-    </section>
-    <%- include('footer.ejs')%>
-        <div class="popupBackground" id="popupBackground"></div>
-        <div class="popupMatch" id="matchForm">
-            <form action="/createMatch" method="post">
-                <div class="formcontainer" style="width: 400px;">
-                  <div class="flex flex-col gap-3 w-full">
-                    <div class="flex flex-col gap-2">
-                      <label for="matchDate">Chọn ngày thi đấu</label>
-                      <input type="date" id="matchDate" name="matchDate" class="rounded border" style="padding: 8px;">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <label for="matchTime">Chọn Thời gian</label>
-                      <input type="time" id="matchTime" name="matchTime" class="rounded border" style="padding: 8px;">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <label for="matchLocation">Vị trí</label>
-                      <input type="text" id="matchLocation" name="matchLocation" class="rounded border" style="padding: 8px;">
-                    </div>
-                    <div class="flex flex-col gap-2">
-                      <label for="matchType">Chọn hạn đội</label>
-                      <div class="options-value flex gap-2">
-                        <button type="button" value="1" class="text-base font-medium" onclick="setMatchType(1, this)">Đơn</button>
-                        <button type="button" value="2" class="text-base font-medium" onclick="setMatchType(2, this)">Đôi</button>
-                      </div>
-                      <input type="hidden" id="matchType" name="matchType" value="">
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn-create w-full">Tạo Trận đấu</button>
-              </form>
-        </div>
-        </div>
-        <script>
-            const createMatch = document.getElementById('createMatch');
-            const mainContainer = document.getElementById('mainContainer');
-            const contentContainer = document.getElementById('contentContainer');
-            const matchForm = document.getElementById('matchForm');
-            const popupBackground = document.getElementById('popupBackground');
-            const showDetailLinks = document.querySelectorAll('.linkdetail');
-            const formChangeMatch = document.getElementById('formChangeMatch');
+        <button type="submit" class="btn-create w-full">Tạo Trận đấu</button>
+      </form>
+    </div>
+    </div>
+    <script>
+      const createMatch = document.getElementById('createMatch');
+      const mainContainer = document.getElementById('mainContainer');
+      const contentContainer = document.getElementById('contentContainer');
+      const matchForm = document.getElementById('matchForm');
+      const popupBackground = document.getElementById('popupBackground');
+      const showDetailLinks = document.querySelectorAll('.linkdetail');
+      const formChangeMatch = document.getElementById('formChangeMatch');
 
-            function setMatchType(type, element) {
-            console.log("click" + type);
-            document.getElementById('matchType').value = type;
-            var buttons = document.querySelectorAll('.options-value button');
-            buttons.forEach(function(button) {
-            button.classList.remove('button-active');
-            });
-            element.classList.add('button-active');
-            }
-            createMatch.addEventListener('click', () => {
-                contentContainer.classList.add('blurEffect');
-                matchForm.style.display = 'block';
-                popupBackground.style.display = 'block';
-            });
+      function setMatchType(type, element) {
+        console.log("click" + type);
+        document.getElementById('matchType').value = type;
+        var buttons = document.querySelectorAll('.options-value button');
+        buttons.forEach(function (button) {
+          button.classList.remove('button-active');
+        });
+        element.classList.add('button-active');
+      }
+      createMatch.addEventListener('click', () => {
+        contentContainer.classList.add('blurEffect');
+        matchForm.style.display = 'block';
+        popupBackground.style.display = 'block';
+      });
 
-            popupBackground.addEventListener('click', () => {
-                contentContainer.classList.remove('blurEffect');
-                matchForm.style.display = 'none';
-                popupBackground.style.display = 'none';
-            });
-        </script>
+      popupBackground.addEventListener('click', () => {
+        contentContainer.classList.remove('blurEffect');
+        matchForm.style.display = 'none';
+        popupBackground.style.display = 'none';
+      });
+    </script>

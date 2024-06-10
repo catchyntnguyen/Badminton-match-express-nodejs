@@ -50,20 +50,20 @@
                       <div class="flex gap-5 justify-between">
                         <div class="flex flex-col gap-2">
                           <label for="team1Score">Nhập tỉ số đội 1</label>
-                          <input type="text" id="team1Score" name="scoreT1" value="<%= matchDetails.scoreT1 %>" class="rounded border" style="padding: 8px;">
+                          <input type="text" id="team1Score" name="scoreT1" value="0" class="rounded border" style="padding: 8px;">
                         </div>
                         <div class="flex flex-col gap-2">
                           <label for="team2Score">Nhập tỉ số đội 2</label>
-                          <input type="text" id="team2Score" name="scoreT2" value="<%= matchDetails.scoreT2 %>" class="rounded border" style="padding: 8px;">
+                          <input type="text" id="team2Score" name="scoreT2" value="0" class="rounded border" style="padding: 8px;">
                         </div>
                       </div>
                       <div class="flex flex-col gap-2" style="width: 200px;">
                         <label for="matchDuration">Nhập số giờ</label>
-                        <input type="text" id="matchDuration" name="time" value="<%= matchDetails.time %>" class="rounded border" style="padding: 8px;">
+                        <input type="text" id="matchDuration" name="time" value="" placeholder="Nhập số giờ chơi" class="rounded border" style="padding: 8px;">
                       </div>
                       <div class="flex flex-col gap-2">
-                        <label for="matchNotes">Địa Chỉ</label>
-                        <textarea id="matchNotes" name="location" class="border rounded"><%= matchDetails.location %></textarea>
+                        <label for="matchNotes">Ghi chú Trận đấu</label>
+                        <textarea id="matchNotes" name="location" class="border rounded"></textarea>
                       </div>
                     </div>
                     <button type="submit" class="btn-create w-full">Sửa Trận đấu</button>

@@ -1,5 +1,5 @@
 main {
-    height: 76vh !important;
+    height: 74.5vh !important;
     overflow-x: hidden;
 }
 
@@ -287,5 +287,8 @@ main {
 }
 
 ::-webkit-inner-spin-button {
+    display: none;
+}
+.hidden{
     display: none;
 }

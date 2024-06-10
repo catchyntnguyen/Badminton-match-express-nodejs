@@ -1,4 +1,5 @@
 //khai báo modules
+const e = require("express");
 const sequelize = require("../configs/connectDB");
 const { Sequelize, QueryTypes } = require("sequelize");
 //hàm tìm id sẵn
@@ -7,13 +8,33 @@ const getid = (data, id) => {
 };
 // Hàm xử lý trang chủ
 let error = null;
+let error2 = null;
+let error3 = null;
 const homePage = async (req, res) => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const matches = await sequelize.query(
     "SELECT * FROM matches_detail ORDER BY id DESC",
     {
       type: QueryTypes.SELECT,
     }
   );
+  const users = await sequelize.query(
+    "SELECT * FROM users ",
+    {
+      type: QueryTypes.SELECT,
+    }
+  );
+  if (!user) {
+    res.redirect('/login');
+  } else {
+    let getUserId = users.find(i => i.id === user[0]);
+    if (getUserId.height == null || getUserId.weight == null || getUserId.phoneNumber == null) {
+      error3 = "có lỗi";
+      res.redirect('/info');
+    } else {
+      error3 = null;
+    }
+  }
   res.render("home", { matches: matches, currentUrl: "/" });
 };
 const filterMissing = async (req, res) => {
@@ -153,7 +174,7 @@ const login = async (req, res) => {
   const userAll = await sequelize.query("SELECT * FROM users", {
     type: QueryTypes.SELECT,
   });
-  res.render("account");
+  res.render("account", { error: error, error2: error2 });
 };
 
 const logOut = (req, res) => {
@@ -161,6 +182,7 @@ const logOut = (req, res) => {
   res.redirect("/login");
 };
 const loginHandler = async (req, res) => {
+  let error = null; // Khởi tạo biến error
   const userAll = await sequelize.query("SELECT * FROM users", {
     type: QueryTypes.SELECT,
   });
@@ -171,20 +193,17 @@ const loginHandler = async (req, res) => {
     error = "Email không tồn tại!!!";
   } else {
     if (password === user.password) {
-      if (user.role == 1) {
-        const userData = Object.values(user);
-        localStorage.setItem("user", JSON.stringify(userData));
-        res.redirect("/");
-      } else {
-        const userData = Object.values(user);
-        localStorage.setItem("user", JSON.stringify(userData));
-        res.redirect("/");
-      }
+      const userData = Object.values(user);
+      localStorage.setItem("user", JSON.stringify(userData));
+      res.redirect("/");
+      return;
     } else {
-      error = "Mật khẩu không đúng bạn ơi!!!";
+      error2 = "Mật khẩu không đúng bạn ơi!!!";
     }
   }
+  res.render("account", { error: error, error2: error2 });
 };
+
 
 const registerHandler = async (req, res) => {
   try {
@@ -487,28 +506,49 @@ const editMatch = async (req, res) => {
 
 const PosteditMatch = async (req, res) => {
   try {
+    const { scoreT1, scoreT2, time, location } = req.body;
     const matchId = Number(req.params.id);
     const user = JSON.parse(localStorage.getItem("user"));
     const userID = user[0];
-    const userDetail = await sequelize.query(`SELECT * FROM users WHERE id = ${userID} `, {
+    // const userDetail = await sequelize.query(`SELECT * FROM users WHERE id = ${userID} `, {
+    //   type: QueryTypes.SELECT,
+    // });
+    const userAll = await sequelize.query(`SELECT * FROM users `, {
       type: QueryTypes.SELECT,
     });
-    let calo = userDetail[0].calo;
-    const { scoreT1, scoreT2, time, location } = req.body;
-    if (userDetail.weight <= 72) {
-      calo += 143 * time
-    } else if (73 <= userDetail.weight <= 90) {
-      calo += 164 * time
-    } else if (91 <= userDetail.weight) {
-      calo += 220 * time
-    }
-    await sequelize.query(
-      "UPDATE users SET calo = ? WHERE id = ?",
-      {
-        replacements: [calo, userID],
-        type: QueryTypes.UPDATE,
+    const detailMatch = await sequelize.query(`SELECT * FROM matches_detail WHERE id = ${matchId} `, {
+      type: QueryTypes.SELECT,
+    });
+    let getUserInMatch = JSON.parse(detailMatch[0].player);
+    getUserInMatch.user.forEach(async user => {
+      // Tìm userId theo cách không đồng bộ
+      let userId = await userAll.find(async u => u.id === user);
+
+      if (!userId) {
+        console.log(`User with id ${user} not found in userAll array`);
+        return; 
       }
-    );
+
+      let calo = userId.calo;
+      if (userId.weight <= 72) {
+        calo += 143 * time;
+      } else if (73 <= userId.weight && userId.weight <= 90) {
+        calo += 164 * time;
+      } else if (userId.weight >= 91) {
+        calo += 220 * time;
+      }
+
+      console.log("user", user, "calo", calo);
+
+      // Cập nhật calo cho user trong cơ sở dữ liệu
+      await sequelize.query(
+        "UPDATE users SET calo = ? WHERE id = ?",
+        {
+          replacements: [calo, user],
+          type: QueryTypes.UPDATE,
+        }
+      );
+    });
     await sequelize.query(
       "UPDATE matches_detail SET scoreT1 = ?, coreT2 = ?, time = ?, location = ? WHERE id = ?",
       {
@@ -534,7 +574,6 @@ const infomation = async (req, res) => {
       type: QueryTypes.SELECT,
     });
 
-
     matches.forEach((match) => {
       const playerData = JSON.parse(match.player);
       const userExists = playerData.user.includes(userID);
@@ -555,18 +594,15 @@ const infomation = async (req, res) => {
       Number(infoUser.weight) / Math.pow(Number(infoUser.height) / 100, 2)
     ).toFixed(2);
     let bmiResultText =
-      bmiResult < 18.5
-        ? "Thiếu cân"
-        : bmiResult >= 25
-          ? "Thừa cân"
-          : "Trung bình";
+      bmiResult < 18.5 ? "Thiếu cân" : bmiResult >= 25 ? "Thừa cân" : bmiResult < 25 ? "Trung bình" : "Chưa cập nhật";
     // Trả về kết quả
     res.render("information", {
       currentUrl: "/info",
       bmi: { bmiResult, bmiResultText },
       infoUser: infoUser,
       yourMatch: yourMatch,
-      hours: hours
+      hours: hours,
+      error: error3
     });
   } catch (error) {
     console.log(error);
@@ -577,7 +613,7 @@ const updateFormInfo1 = async (req, res) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
     const userID = Number(user[0]);
-    console.log(userID);
+    // console.log(userID);
     const { heightData, weightData } = req.body;
     const bmiResult = (
       Number(weightData) / Math.pow(Number(heightData) / 100, 2)

@@ -40,7 +40,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 header {
   display: flex;
@@ -64,7 +64,7 @@ main {
   padding: 0 160px;
   width: 100%;
   /* height: 543px;   */
-  height: 100vh;  
+  height: 74.5vh;  
   display: flex;
   background-color: lightcyan;
 }
@@ -256,7 +256,7 @@ footer ul li {
   font-size: 14px;
 }
 .content--body{
-  height: 402px;
+  height: 348px;
   overflow-y: scroll;
   background-color: #FFD771;
 }
@@ -302,7 +302,7 @@ footer ul li {
 }
 .blanket_form .blanket_form--above{
   /* min-height:543px; */
-  height: 100vb;
+  height: 88vb;
   background-color:rgba(217, 217, 217, 0.8);
   z-index:10;
 }
