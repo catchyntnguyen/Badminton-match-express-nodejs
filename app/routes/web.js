@@ -25,6 +25,7 @@ const {
   infomation,
   updateFormInfo1,
   updateFormInfo2,
+  deleteMatch
 } = require("../controller/homeController");
 
 let router = express.Router();
@@ -50,6 +51,7 @@ router.get("/history/filter_Match_Couple", historyFilterMatchCouple);
 router.get("/match/team/:id", matchTeam);
 router.get("/history/:id", historyDetail);
 router.get("/editMatch/:id", editMatch);
+router.get("/delete/:id", deleteMatch);
 router.get("/yourMatch", yourMatch);
 // handlers
 router.post("/match/:team/:id", joinTeam);

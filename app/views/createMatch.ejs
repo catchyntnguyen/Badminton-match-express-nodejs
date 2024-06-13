@@ -1,4 +1,6 @@
 <%- include('header.ejs')%>
+<%let style="none" %>
+<%if(error !==null){ style="block" } else{ style="none" }%>
   <section class="main__content p-3 relative">
     <div class="content--header">
       <div class="m_c-headerAbove">
@@ -13,6 +15,8 @@
           class="fa-solid fa-gear"></i></button>
       <button id="createMatch">Tạo bản đấu<i class="fa-solid fa-gear"></i></button>
     </div>
+    <span
+    style="display: <%=style%>; background-color: red; border-radius: 20px; padding: 2px 10px; color: white; position: absolute;  "><%=error%></span>
     <div class="w-full rounded" style="margin-top: 30px; background: #FFD771;padding: 12px 22px">
       <div class="content--body w-full content- container-table h-full">
         <table id="table" class="table hover:table-fixed w-full ">
@@ -38,9 +42,9 @@
                   <%= item.status==2 ? "Sắp diễn ra" : item.status==3 ? "Hoàn thành" : "Đang chờ" %>
                 </td>
                 <!-- <td><a href="/editMatch/<%=item.id%>" id="btnshow" class="linkdetail">Cập nhật</a></td> -->
-                <td><a href="<%= item.status == 2 ? `/editMatch/${item.id}` : (item.status == 3 ? `/match/team/${item.id}` : '') %>"
+                <td><a href="<%= item.status == 2 ? `/editMatch/${item.id}` : (item.status == 3 ? `/match/team/${item.id}` : `/delete/${item.id}`) %>"
                     id="btnshow" class="linkdetail">
-                    <%= item.status==2 ? "Cập nhật" : item.status==3 ? "Xem chi tiết" : "Đang chờ" %>
+                    <%= item.status==2 ? "Cập nhật" : item.status==3 ? "Xem chi tiết" : "Hủy trận" %>
                   </a></td>
               </tr>
               <% } %>
@@ -54,6 +58,7 @@
     </div>
   </section>
   <%- include('footer.ejs')%>
+
     <div class="popupBackground" id="popupBackground"></div>
     <div class="popupMatch" id="matchForm">
       <form action="/createMatch" method="post">

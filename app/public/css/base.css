@@ -152,7 +152,7 @@ main {
 .menu__li a {
   display: flex;
   width: 99%;
-  padding: 15px 0;
+  padding: 12px 0;
   position: relative;
 }
 .menu__li a::after {
@@ -302,8 +302,9 @@ footer ul li {
 }
 .blanket_form .blanket_form--above{
   /* min-height:543px; */
-  height: 88vb;
+  height: 86.5vb;
   background-color:rgba(217, 217, 217, 0.8);
+  backdrop-filter: blur(5px);
   z-index:10;
 }
 .blanket_form .blanket_form--under{
@@ -338,7 +339,7 @@ footer ul li {
 }
 .form__in4--header>div{
   position:relative;
-  left: 200px;
+  left: 190px;
   cursor:pointer;
 }
 .form__contact{
@@ -362,7 +363,7 @@ footer ul li {
 }
 .btnJoin{
   position:relative;
-  top:350px;
+  top:300px;
   right:1px;
   display:flex;
   justify-content:end;

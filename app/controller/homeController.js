@@ -10,6 +10,7 @@ const getid = (data, id) => {
 let error = null;
 let error2 = null;
 let error3 = null;
+let error4 = null;
 const homePage = async (req, res) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const matches = await sequelize.query(
@@ -388,7 +389,7 @@ const createMatch = async (req, res) => {
       const userExists = playerData.user.includes(userID);
       // console.log(`Match ID: ${match.id}, User exists: ${userExists}`);
     });
-    res.render("createMatch", { currentUrl: "/createMatch", showMatch });
+res.render("createMatch", { currentUrl: "/createMatch", showMatch, error: error4 });
   } catch (error) {
     console.log(error);
   }
@@ -396,6 +397,7 @@ const createMatch = async (req, res) => {
 
 const yourMatch = async (req, res) => {
   try {
+
     let yourMatch = [];
 
     const matches = await sequelize.query("SELECT * FROM matches_detail", {
@@ -417,6 +419,7 @@ const yourMatch = async (req, res) => {
     res.render("createMatch", {
       currentUrl: "/createMatch",
       showMatch: yourMatch,
+      error: error4 
     });
   } catch (error) {
     console.log(error);
@@ -427,38 +430,73 @@ const yourMatch = async (req, res) => {
 const postcreateMatch = async (req, res) => {
   try {
     const { matchType, matchDate, matchTime, matchLocation } = req.body;
+    // if (!matchType || !matchDate || !matchTime || !matchLocation) {
+    //   error4 = ("Bạn để rỗng thông tin cập nhật trận đấu bạn hãy nhập lại");
+    //   res.reload();
+    // }
     const user = JSON.parse(localStorage.getItem("user"));
     const userID = user[0];
     const playerArray = [userID];
     const playerJSON = JSON.stringify({ user: playerArray });
+    const matches = await sequelize.query(
+      "SELECT * FROM matches_detail WHERE status IN (1, 2) ORDER BY id DESC",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
 
+    let i = 0;
+    error4 = null;
+    for (const match of matches) {
+      const playerData = JSON.parse(match.player);
+      const userExists = playerData.user.includes(userID);
 
+      if (userExists) {
+        i++;
+        if (i >= 3) {
+          error4 = 'Bạn chỉ có thể tạo 3 trận đấu ở trạng thái đang chờ';
+          break;
+        }
+        if (match.dateStart === matchDate && match.time === matchTime) {
+          error4 = 'Có thể bạn đã có trận đấu cùng ngày cùng giờ rồi';
+          break;
+        }
+      }
+    }
 
-    const query = `
-      INSERT INTO matches_detail (categoriesID, scoreT1, status, dateStart, dateEnd, player, coreT2, time, location)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
+    if (!error4) {
+      error4 = null;
+      const query = `
+        INSERT INTO matches_detail (categoriesID, scoreT1, status, dateStart, dateEnd, player, coreT2, time, location)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      await sequelize.query(query, {
+        replacements: [
+          matchType,
+          0,
+          1,
+          matchDate,
+          "",
+          playerJSON,
+          0,
+          matchTime,
+          matchLocation,
+        ],
+        type: QueryTypes.INSERT,
+      });
+    }
 
-    await sequelize.query(query, {
-      replacements: [
-        matchType,
-        0,
-        1,
-        matchDate,
-        "",
-        playerJSON,
-        0,
-        matchTime,
-        matchLocation,
-      ],
-      type: QueryTypes.INSERT,
-    });
-    res.redirect("createMatch");
+    if (error4) {
+      res.redirect(`/createMatch?error=${encodeURIComponent(error4)}`);
+    } else {
+      res.redirect('/createMatch');
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send("Error creating match");
   }
 };
+
 const editMatch = async (req, res) => {
   try {
     const matchId = Number(req.params.id);
@@ -510,9 +548,6 @@ const PosteditMatch = async (req, res) => {
     const matchId = Number(req.params.id);
     const user = JSON.parse(localStorage.getItem("user"));
     const userID = user[0];
-    // const userDetail = await sequelize.query(`SELECT * FROM users WHERE id = ${userID} `, {
-    //   type: QueryTypes.SELECT,
-    // });
     const userAll = await sequelize.query(`SELECT * FROM users `, {
       type: QueryTypes.SELECT,
     });
@@ -526,7 +561,7 @@ const PosteditMatch = async (req, res) => {
 
       if (!userId) {
         console.log(`User with id ${user} not found in userAll array`);
-        return; 
+        return;
       }
 
       let calo = userId.calo;
@@ -538,7 +573,7 @@ const PosteditMatch = async (req, res) => {
         calo += 220 * time;
       }
 
-      console.log("user", user, "calo", calo);
+      // console.log("user", user, "calo", calo);
 
       // Cập nhật calo cho user trong cơ sở dữ liệu
       await sequelize.query(
@@ -550,7 +585,7 @@ const PosteditMatch = async (req, res) => {
       );
     });
     await sequelize.query(
-      "UPDATE matches_detail SET scoreT1 = ?, coreT2 = ?, time = ?, location = ? WHERE id = ?",
+      "UPDATE matches_detail SET scoreT1 = ?, coreT2 = ?, timePlay = ?, location = ? WHERE id = ?",
       {
         replacements: [scoreT1, scoreT2, time, location, matchId],
         type: QueryTypes.UPDATE,
@@ -631,6 +666,19 @@ const updateFormInfo1 = async (req, res) => {
     res.status(400).send({ message: "Đã xảy ra lỗi khi cập nhật" });
   }
 };
+
+const deleteMatch = (req, res) => {
+  let id = Number(req.params.id);
+  sequelize.query(
+    "DELETE FROM matches_detail WHERE id = ?",
+    {
+      replacements: [id],
+      type: QueryTypes.DELETE,
+    }
+  );
+  res.redirect("/yourMatch");
+}
+
 const updateFormInfo2 = async (req, res) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -689,4 +737,5 @@ module.exports = {
   infomation,
   updateFormInfo1,
   updateFormInfo2,
+  deleteMatch
 };
